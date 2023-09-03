@@ -14,8 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "produto")
 public class Produto {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +30,10 @@ public class Produto {
 
     private Condicao condicao;
 
+    @ManyToOne
+    @JoinColumn(name = "leilao_id")
+    private Leilao leilao;
+
     public Produto(Produto produtoEncontrado, Produto produto){
         this.id = produtoEncontrado.getId();
         this.tipoProduto = produto.tipoProduto;
@@ -40,6 +42,7 @@ public class Produto {
         this.descricao = produto.descricao;
         this.anoFabricacao = produto.anoFabricacao;
         this.condicao = produto.condicao;
+        this.leilao = produto.leilao;
     }
 
 }
