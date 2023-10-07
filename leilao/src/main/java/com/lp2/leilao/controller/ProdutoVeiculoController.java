@@ -1,12 +1,13 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.ProdutoInformatica;
 import com.lp2.leilao.model.ProdutoVeiculo;
-import com.lp2.leilao.repository.ProdutoInformaticaRepository;
+import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
+import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoDTO;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
-import com.lp2.leilao.service.ProdutoInformaticaService;
 import com.lp2.leilao.service.ProdutoVeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,23 +22,24 @@ public class ProdutoVeiculoController {
     @Autowired
     private ProdutoVeiculoService produtoService;
 
-    @PostMapping
-    public ProdutoVeiculo addProduct (@RequestBody ProdutoVeiculo produtoVeiculo){
-        return produtoRepository.save(produtoVeiculo);
+    @PostMapping("/criar/{leilaoId}")
+    public ExibicaoProdutoVeiculoDTO adicionarProduto (@PathVariable Long leilaoId,
+                                                       @RequestBody CadastroProdutoVeiculoDTO produtoVeiculo){
+        return produtoService.criarProdutoVeiculo(leilaoId, produtoVeiculo);
     }
 
-    @GetMapping
-    public List<ProdutoVeiculo> listAllProdut (){
-        return produtoRepository.findAll();
+    @GetMapping("/listar-todos")
+    public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo (){
+        return produtoService.listarProdutosVeiculo();
     }
 
-    @PutMapping("/{id}")
-    public ProdutoVeiculo updateProdut(@PathVariable Long id, @RequestBody ProdutoVeiculo produtoVeiculo){
+    @PutMapping("atualizar/{id}")
+    public ExibicaoProdutoVeiculoDTO atualizarProdutoVeiculo(@PathVariable Long id, @RequestBody CadastroProdutoVeiculoDTO produtoVeiculo){
         return produtoService.atualizarProduto(id, produtoVeiculo);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProdut(@PathVariable Long id){
-        produtoRepository.deleteById(id);
+    @DeleteMapping("deletar/{id}")
+    public ResponseEntity<String> deletarProdutoVeiculo(@PathVariable Long id){
+        return produtoService.deletarProdutoVeiculo(id);
     }
 }

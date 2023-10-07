@@ -1,11 +1,15 @@
 package com.lp2.leilao.model;
 
 
+import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
+import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -43,17 +47,30 @@ public class ProdutoInformatica {
 
     public ProdutoInformatica(ProdutoInformatica produtoInformaticaEncontrado, ProdutoInformatica produtoInformatica){
         this.id = produtoInformaticaEncontrado.getId();
-        this.tipoProduto = produtoInformatica.tipoProduto;
-        this.marca = produtoInformatica.marca;
-        this.modelo = produtoInformatica.modelo;
-        this.descricao = produtoInformatica.descricao;
-        this.anoFabricacao = produtoInformatica.anoFabricacao;
-        this.condicao = produtoInformatica.condicao;
-        this.numeroSerie = produtoInformatica.numeroSerie;
-        this.cor = produtoInformatica.cor;
-        this.precoInicial = produtoInformatica.precoInicial;
-        this.leilao = produtoInformatica.leilao;
 
+        this.tipoProduto = produtoInformatica.tipoProduto != null ? produtoInformatica.tipoProduto : produtoInformaticaEncontrado.getTipoProduto();
+        this.marca = produtoInformatica.marca != null ? produtoInformatica.marca : produtoInformaticaEncontrado.getMarca();
+        this.modelo = produtoInformatica.modelo != null ? produtoInformatica.modelo : produtoInformaticaEncontrado.getModelo();
+        this.descricao = produtoInformatica.descricao != null ? produtoInformatica.descricao : produtoInformaticaEncontrado.getDescricao() ;
+        this.anoFabricacao = produtoInformatica.anoFabricacao != null ? produtoInformatica.anoFabricacao : produtoInformaticaEncontrado.getAnoFabricacao();
+        this.condicao = produtoInformatica.condicao != null ? produtoInformatica.condicao : produtoInformaticaEncontrado.getCondicao();
+        this.numeroSerie = produtoInformatica.numeroSerie != null ? produtoInformatica.numeroSerie : produtoInformaticaEncontrado.getNumeroSerie();
+        this.cor = produtoInformatica.cor != null ? produtoInformatica.cor : produtoInformaticaEncontrado.getCor();
+        this.precoInicial = produtoInformatica.precoInicial != null ? produtoInformatica.precoInicial : produtoInformaticaEncontrado.getPrecoInicial();
+        this.leilao = produtoInformatica.leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = cadastroProdutoInformaticaDTO.tipoProduto();
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.leilao = leilao;
     }
 
 }

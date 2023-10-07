@@ -1,6 +1,7 @@
 package com.lp2.leilao.model;
 
 
+import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,17 +46,32 @@ public class ProdutoVeiculo {
     private Leilao leilao;
     public ProdutoVeiculo(ProdutoVeiculo produtoVeiculoEncontrado, ProdutoVeiculo produtoVeiculo) {
         this.id = produtoVeiculoEncontrado.getId();
-        this.tipoProduto = produtoVeiculo.tipoProduto;
-        this.marca = produtoVeiculo.marca;
-        this.modelo = produtoVeiculo.modelo;
-        this.descricao = produtoVeiculo.descricao;
-        this.anoFabricacao = produtoVeiculo.anoFabricacao;
-        this.condicao = produtoVeiculo.condicao;
-        this.numeroPlaca = produtoVeiculo.numeroPlaca;
-        this.quilometragem = produtoVeiculo.quilometragem;
-        this.motor = produtoVeiculo.motor;
-        this.cor = produtoVeiculo.cor;
-        this.precoInicial = produtoVeiculo.precoInicial;
+        this.tipoProduto = produtoVeiculo.tipoProduto != null ? produtoVeiculo.tipoProduto : produtoVeiculoEncontrado.getTipoProduto();
+        this.marca = produtoVeiculo.marca != null ? produtoVeiculo.marca : produtoVeiculoEncontrado.getMarca();
+        this.modelo = produtoVeiculo.modelo != null ? produtoVeiculo.modelo : produtoVeiculoEncontrado.getModelo();
+        this.descricao = produtoVeiculo.descricao != null ? produtoVeiculo.descricao : produtoVeiculoEncontrado.getDescricao();
+        this.anoFabricacao = produtoVeiculo.anoFabricacao != null ? produtoVeiculo.anoFabricacao : produtoVeiculoEncontrado.getAnoFabricacao();
+        this.condicao = produtoVeiculo.condicao != null ? produtoVeiculo.condicao : produtoVeiculoEncontrado.getCondicao();
+        this.numeroPlaca = produtoVeiculo.numeroPlaca != null ? produtoVeiculo.numeroPlaca : produtoVeiculoEncontrado.getNumeroPlaca();
+        this.quilometragem = produtoVeiculo.quilometragem != null ? produtoVeiculo.quilometragem : produtoVeiculoEncontrado.getQuilometragem();
+        this.motor = produtoVeiculo.motor != null ? produtoVeiculo.motor : produtoVeiculoEncontrado.getMotor();
+        this.cor = produtoVeiculo.cor != null ? produtoVeiculo.cor : produtoVeiculoEncontrado.getCor();
+        this.precoInicial = produtoVeiculo.precoInicial != null ? produtoVeiculo.precoInicial : produtoVeiculoEncontrado.getPrecoInicial();
         this.leilao = produtoVeiculo.leilao;
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
     }
 }

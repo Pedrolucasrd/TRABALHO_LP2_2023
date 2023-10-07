@@ -11,6 +11,7 @@ public class LeilaoService {
     @Autowired
     private LeilaoRepository leilaoRepository;
 
+
     public void criarNovoLeilao (Leilao leilao){
         leilaoRepository.save(leilao);
     }
