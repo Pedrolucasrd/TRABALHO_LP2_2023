@@ -23,7 +23,7 @@ mvn -version
 ```
 ## Clone o Repositório
 ```
-- git clone https://github.com/seu-usuario/seu-projeto.git
+- git clone https://github.com/Pedrolucasrd/TRABALHO_LP2_2023.git
 - cd seu-projeto
 ```
 ## Build e Execução do Projeto
@@ -39,7 +39,7 @@ mvn -version
 ```
 ### Execute o aplicativo Spring Boot:
 ```
-java -jar target/seu-projeto-1.0.0.jar
+java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 ```
 ### O aplicativo estará disponível 
 
