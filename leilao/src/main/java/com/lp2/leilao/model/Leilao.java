@@ -1,6 +1,7 @@
 package com.lp2.leilao.model;
 
 
+import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +21,16 @@ public class Leilao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nome;
     private String descricao;
-    private LocalDateTime dataInicio = LocalDateTime.now(ZoneId.systemDefault()).minusHours(3);
+    private LocalDateTime dataAbertura = LocalDateTime.now(ZoneId.systemDefault()).minusHours(3);
+    private LocalDateTime dataInicio;
     private LocalDateTime dataFechamento;
     private StatusLeilao status;
+
+    public Leilao(CadastroLeilaoDTO leilao) {
+        this.nome = leilao.nome();
+        this.descricao = leilao.descricao();
+        this.status = StatusLeilao.EM_ABERTO;
+    }
 }

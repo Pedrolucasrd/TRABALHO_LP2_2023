@@ -1,7 +1,7 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.Leilao;
-import com.lp2.leilao.repository.LeilaoRepository;
+import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.dto.ExibicaoLeilaoCriadoDTO;
 import com.lp2.leilao.service.LeilaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +16,9 @@ public class LeilaoController {
     @Autowired
     private LeilaoService leilaoService;
 
-    @PostMapping
-    public void criarLeilao (@RequestBody Leilao leilao){
-        leilaoService.criarNovoLeilao(leilao);
+    @PostMapping("/criar")
+    public ExibicaoLeilaoCriadoDTO criarLeilao (@RequestBody CadastroLeilaoDTO leilao){
+        return leilaoService.criarNovoLeilao(leilao);
     }
 
 
