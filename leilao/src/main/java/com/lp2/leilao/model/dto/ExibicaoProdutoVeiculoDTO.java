@@ -15,7 +15,8 @@ public record ExibicaoProdutoVeiculoDTO(
         Double quilometragem,
         Double motor,
         String cor,
-        Double precoInicial
+        Double precoInicial,
+        Long leilaoId
 ) {
 
 
@@ -31,6 +32,7 @@ public record ExibicaoProdutoVeiculoDTO(
                 produtoVeiculo.getQuilometragem(),
                 produtoVeiculo.getMotor(),
                 produtoVeiculo.getCor(),
-                produtoVeiculo.getPrecoInicial());
+                produtoVeiculo.getPrecoInicial(),
+                produtoVeiculo.getLeilao().getId());
     }
 }

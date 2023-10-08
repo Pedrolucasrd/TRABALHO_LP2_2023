@@ -3,6 +3,7 @@ package com.lp2.leilao.controller;
 import com.lp2.leilao.model.ProdutoVeiculo;
 import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
 import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoMudarLeilaoDTO;
 import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoDTO;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
 import com.lp2.leilao.service.ProdutoVeiculoService;
@@ -36,6 +37,11 @@ public class ProdutoVeiculoController {
     @PutMapping("atualizar/{id}")
     public ExibicaoProdutoVeiculoDTO atualizarProdutoVeiculo(@PathVariable Long id, @RequestBody CadastroProdutoVeiculoDTO produtoVeiculo){
         return produtoService.atualizarProduto(id, produtoVeiculo);
+    }
+
+    @PutMapping("mudar-leilao/{idProduto}/{idLeilao}")
+    public ExibicaoProdutoMudarLeilaoDTO mudarLeilaoProdutoVeiculo(@PathVariable Long idProduto, @PathVariable Long idLeilao){
+        return produtoService.mudarLeilaoProdutoVeiculo(idProduto,idLeilao);
     }
 
     @DeleteMapping("deletar/{id}")
