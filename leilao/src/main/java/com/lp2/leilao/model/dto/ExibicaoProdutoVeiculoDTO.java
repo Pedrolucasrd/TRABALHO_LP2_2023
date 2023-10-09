@@ -1,6 +1,7 @@
 package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Condicao;
+import com.lp2.leilao.model.LanceProdutoVeiculo;
 import com.lp2.leilao.model.ProdutoVeiculo;
 
 public record ExibicaoProdutoVeiculoDTO(
@@ -35,4 +36,5 @@ public record ExibicaoProdutoVeiculoDTO(
                 produtoVeiculo.getPrecoInicial(),
                 produtoVeiculo.getLeilao().getId());
     }
+
 }
