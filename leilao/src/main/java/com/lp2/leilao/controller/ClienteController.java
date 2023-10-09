@@ -35,15 +35,11 @@ public class ClienteController {
         return clienteService.atualizarCliente(cpf, atualizaClienteDTO);
     }
 
-    @GetMapping("procurar-lances-informatica-por-cpf/{cpf}")
-    public List<ExibicaoLanceProdutoInformaticaDTO> procurarLancesInformaticaPorCpf(@PathVariable String cpf){
-        return clienteService.procurarLancesInformaticaPorCpf(cpf);
+    @GetMapping("procurar-lances-por-cpf/{cpf}")
+    public List<ExibicaoLanceProdutoDTO> procurarLancesInformaticaPorCpf(@PathVariable String cpf){
+        return clienteService.procurarLancesPorCpf(cpf);
     }
 
-    @GetMapping("procurar-lances-veiculo-por-cpf/{cpf}")
-    public List<ExibicaoLanceProdutoVeiculoDTO> procurarLancesVeiculoPorCpf(@PathVariable String cpf){
-        return clienteService.procurarLancesVeiculoPorCpf(cpf);
-    }
 
     @DeleteMapping("deletar/{cpf}")
     public ResponseEntity<String> deletarClientePeloCpf (@PathVariable String cpf){

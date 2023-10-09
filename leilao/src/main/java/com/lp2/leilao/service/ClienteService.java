@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,24 +61,21 @@ public class ClienteService {
         return new ExibicaoClienteDTO(clienteAtualizado);
     }
 
-    public List<ExibicaoLanceProdutoInformaticaDTO> procurarLancesInformaticaPorCpf(String cpf) {
+    public List<ExibicaoLanceProdutoDTO> procurarLancesPorCpf(String cpf) {
         Optional<Cliente> cliente = clienteRepository.findById(cpf);
         if(cliente.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!");
         }
-        List<LanceProdutoInformatica> listaLances = lanceProdutoInformaticaRepository.findAllByCliente(cliente.get());
-        return listaLances.stream().map(lanceProdutoInformatica
-                -> new ExibicaoLanceProdutoInformaticaDTO(lanceProdutoInformatica)).toList();
-    }
-
-    public List<ExibicaoLanceProdutoVeiculoDTO> procurarLancesVeiculoPorCpf(String cpf) {
-        Optional<Cliente> cliente = clienteRepository.findById(cpf);
-        if(cliente.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado!");
-        }
-        List<LanceProdutoVeiculo> listaLances = lanceProdutoVeiculoRepository.findAllByCliente(cliente.get());
-        return listaLances.stream().map(lanceProdutoVeiculo
-                -> new ExibicaoLanceProdutoVeiculoDTO(lanceProdutoVeiculo)).toList();
+        List<LanceProdutoInformatica> listaLancesInfo = lanceProdutoInformaticaRepository.findAllByCliente(cliente.get());
+        List<LanceProdutoVeiculo> listaLancesVei = lanceProdutoVeiculoRepository.findAllByCliente(cliente.get());
+        List<ExibicaoLanceProdutoDTO> exibicaoLanceProdutoDTO1 = listaLancesInfo.stream().map(lanceProdutoInformatica
+                -> new ExibicaoLanceProdutoDTO(lanceProdutoInformatica)).toList();
+        List<ExibicaoLanceProdutoDTO> exibicaoLanceProdutoDTO2 = listaLancesVei.stream().map(lanceProdutoInformatica
+                -> new ExibicaoLanceProdutoDTO(lanceProdutoInformatica)).toList();
+        List<ExibicaoLanceProdutoDTO> listaConcatenada = new ArrayList<>();
+        listaConcatenada.addAll(exibicaoLanceProdutoDTO1);
+        listaConcatenada.addAll(exibicaoLanceProdutoDTO2);
+        return listaConcatenada;
     }
 
     public ResponseEntity<String> deletarClientePeloCpf(String cpf) {

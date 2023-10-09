@@ -1,7 +1,7 @@
 package com.lp2.leilao.service;
 
 import com.lp2.leilao.model.*;
-import com.lp2.leilao.model.dto.ExibicaoLanceProdutoInformaticaDTO;
+import com.lp2.leilao.model.dto.ExibicaoLanceProdutoDTO;
 import com.lp2.leilao.model.dto.ExibicaoLanceProdutoVeiculoDTO;
 import com.lp2.leilao.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,9 @@ public class LanceService {
 
     @Autowired
     private ProdutoVeiculoRepository produtoVeiculoRepository;
-    public ExibicaoLanceProdutoInformaticaDTO gerarlanceProdutoInformatica(Long produtoId, String clienteCpf, Double valor){
+    public ExibicaoLanceProdutoDTO gerarlanceProdutoInformatica(Long produtoId, String clienteCpf, Double valor){
         Optional<ProdutoInformatica> produtoInformatica = produtoInformaticaRepository.findById(produtoId);
+
         if(produtoInformatica.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
         }
@@ -44,10 +45,10 @@ public class LanceService {
         }
         LanceProdutoInformatica lanceProdutoInformatica = new LanceProdutoInformatica(produtoInformatica.get(),cliente.get(),valor);
         lanceProdutoInformaticaRepository.save(lanceProdutoInformatica);
-        return new ExibicaoLanceProdutoInformaticaDTO(lanceProdutoInformatica);
+        return new ExibicaoLanceProdutoDTO(lanceProdutoInformatica);
     }
 
-    public ExibicaoLanceProdutoVeiculoDTO gerarLanceProdutoVeiculo(Long produtoId, String clienteCpf, Double valor){
+    public ExibicaoLanceProdutoDTO gerarLanceProdutoVeiculo(Long produtoId, String clienteCpf, Double valor){
         Optional<ProdutoVeiculo> produtoVeiculo = produtoVeiculoRepository.findById(produtoId);
         if(produtoVeiculo.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
@@ -63,7 +64,19 @@ public class LanceService {
         }
         LanceProdutoVeiculo lanceProdutoVeiculo = new LanceProdutoVeiculo(produtoVeiculo.get(),cliente.get(),valor);
         lanceProdutoVeiculoRepository.save(lanceProdutoVeiculo);
-        return new ExibicaoLanceProdutoVeiculoDTO(lanceProdutoVeiculo);
+        return new ExibicaoLanceProdutoDTO(lanceProdutoVeiculo);
+    }
+
+    public ExibicaoLanceProdutoDTO gerarLanceProduto (Long produtoId, String clienteCpf, Double valor,CategoriaProduto categoriaProduto){
+        switch (categoriaProduto){
+            case VEICULO -> {
+                return gerarLanceProdutoVeiculo(produtoId,clienteCpf,valor);
+            }
+            case INFORMATICA -> {
+                return gerarlanceProdutoInformatica(produtoId, clienteCpf, valor);
+            }
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao gerar lance!");
     }
 
 }
