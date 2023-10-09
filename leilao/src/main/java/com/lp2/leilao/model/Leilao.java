@@ -33,4 +33,14 @@ public class Leilao {
         this.descricao = leilao.descricao();
         this.status = StatusLeilao.EM_ABERTO;
     }
+
+    public Leilao(Leilao leilao, CadastroLeilaoDTO cadastroLeilaoDTO) {
+        this.id = leilao.getId();
+        this.nome = cadastroLeilaoDTO.nome() != null ? cadastroLeilaoDTO.nome() : leilao.getNome();
+        this.descricao = cadastroLeilaoDTO.descricao() != null ? cadastroLeilaoDTO.descricao() : leilao.getDescricao();
+        this.dataAbertura = leilao.getDataAbertura();
+        this.dataInicio = leilao.getDataInicio();
+        this.dataFechamento = leilao.getDataFechamento();
+        this.status = leilao.getStatus();
+    }
 }

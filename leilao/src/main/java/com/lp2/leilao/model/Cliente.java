@@ -1,5 +1,8 @@
 package com.lp2.leilao.model;
 
+import com.lp2.leilao.model.dto.AtualizaClienteDTO;
+import com.lp2.leilao.model.dto.CadastroClienteDTO;
+import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +20,27 @@ public class Cliente {
     private String cpf;
 
     private String nome;
+
+    private String email;
+
+    private String telefone;
+
+    private String senha;
+
+    public Cliente(CadastroClienteDTO cadastroClienteDTO) {
+        this.cpf = cadastroClienteDTO.cpf();
+        this.nome = cadastroClienteDTO.nome();
+        this.email = cadastroClienteDTO.email();
+        this.telefone = cadastroClienteDTO.telefone();
+        this.senha = cadastroClienteDTO.senha();
+    }
+
+    public Cliente(Cliente cliente, AtualizaClienteDTO atualizaClienteDTO) {
+        this.cpf = cliente.cpf;
+        this.nome = atualizaClienteDTO.nome() != null ? atualizaClienteDTO.nome() : cliente.getNome();
+        this.email = atualizaClienteDTO.email() != null ? atualizaClienteDTO.email() : cliente.email;
+        this.telefone = atualizaClienteDTO.telefone() != null ? atualizaClienteDTO.telefone() : cliente.getTelefone();
+        this.senha = atualizaClienteDTO.senha() != null ? atualizaClienteDTO.senha() : cliente.getSenha();
+    }
+
 }

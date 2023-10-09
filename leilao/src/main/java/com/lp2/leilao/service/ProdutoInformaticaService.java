@@ -4,6 +4,7 @@ import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.ProdutoInformatica;
 import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
 import com.lp2.leilao.model.dto.ExibicaoProdutoInformaticaDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoMudarLeilaoDTO;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,4 +67,21 @@ public class ProdutoInformaticaService {
             return ResponseEntity.ok().body("Erro ao deletar produto!");
         }
     }
+
+    public ExibicaoProdutoMudarLeilaoDTO mudarLeilaoProdutoInformatica(Long idProduto, Long idLeilao) {
+
+        Optional<ProdutoInformatica> produtoInformatica = produtoRepository.findById(idProduto);
+        if(produtoInformatica.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+        }
+        Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
+        if(leilao.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        produtoInformatica.get().setLeilao(leilao.get());
+        produtoRepository.save(produtoInformatica.get());
+        return new ExibicaoProdutoMudarLeilaoDTO(idProduto,idLeilao);
+
+    }
+
 }

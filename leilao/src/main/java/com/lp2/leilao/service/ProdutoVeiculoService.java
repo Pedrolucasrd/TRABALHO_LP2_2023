@@ -3,10 +3,7 @@ package com.lp2.leilao.service;
 import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.ProdutoInformatica;
 import com.lp2.leilao.model.ProdutoVeiculo;
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.*;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
@@ -66,6 +63,21 @@ public class ProdutoVeiculoService {
         } else {
             return ResponseEntity.ok().body("Erro ao deletar produto!");
         }
+    }
+    public ExibicaoProdutoMudarLeilaoDTO mudarLeilaoProdutoVeiculo(Long idProduto, Long idLeilao) {
+
+        Optional<ProdutoVeiculo> produtoVeiculo = produtoRepository.findById(idProduto);
+        if(produtoVeiculo.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+        }
+        Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
+        if(leilao.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        produtoVeiculo.get().setLeilao(leilao.get());
+        produtoRepository.save(produtoVeiculo.get());
+        return new ExibicaoProdutoMudarLeilaoDTO(idProduto,idLeilao);
+
     }
 }
 

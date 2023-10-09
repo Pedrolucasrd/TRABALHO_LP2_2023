@@ -1,6 +1,7 @@
 package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Condicao;
+import com.lp2.leilao.model.LanceProdutoVeiculo;
 import com.lp2.leilao.model.ProdutoVeiculo;
 
 public record ExibicaoProdutoVeiculoDTO(
@@ -15,7 +16,8 @@ public record ExibicaoProdutoVeiculoDTO(
         Double quilometragem,
         Double motor,
         String cor,
-        Double precoInicial
+        Double precoInicial,
+        Long leilaoId
 ) {
 
 
@@ -31,6 +33,8 @@ public record ExibicaoProdutoVeiculoDTO(
                 produtoVeiculo.getQuilometragem(),
                 produtoVeiculo.getMotor(),
                 produtoVeiculo.getCor(),
-                produtoVeiculo.getPrecoInicial());
+                produtoVeiculo.getPrecoInicial(),
+                produtoVeiculo.getLeilao().getId());
     }
+
 }

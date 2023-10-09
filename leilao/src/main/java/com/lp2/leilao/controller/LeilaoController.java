@@ -1,13 +1,13 @@
 package com.lp2.leilao.controller;
 
 import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.dto.ExibicaoClienteDTO;
 import com.lp2.leilao.model.dto.ExibicaoLeilaoCriadoDTO;
+import com.lp2.leilao.model.dto.ExibicaoLeilaoDTO;
 import com.lp2.leilao.service.LeilaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "leilao")
@@ -19,6 +19,21 @@ public class LeilaoController {
     @PostMapping("/criar")
     public ExibicaoLeilaoCriadoDTO criarLeilao (@RequestBody CadastroLeilaoDTO leilao){
         return leilaoService.criarNovoLeilao(leilao);
+    }
+
+    @GetMapping("/consultar/{id}")
+    public ExibicaoLeilaoDTO consultarLeilaoPorId(@PathVariable Long id){
+        return leilaoService.consultarLeilaoPorId(id);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ExibicaoLeilaoDTO atualizarLeilao(@PathVariable Long id, @RequestBody CadastroLeilaoDTO cadastroLeilaoDTO){
+        return leilaoService.atualizarLeilao(id, cadastroLeilaoDTO);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarLeilaoPorId (@PathVariable Long id){
+        return leilaoService.deletarLeilaoPorId(id);
     }
 
 
