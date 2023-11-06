@@ -11,10 +11,8 @@ import com.lp2.leilao.repository.InstituicaoFinanceiraRepository;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.service.InstituicaoFinanceiraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -35,4 +33,20 @@ public class InstituicaoFinanceiraController {
     public void vincularInstituicaoComLeilao(@PathVariable Long idLeilao, @PathVariable Long idInstituicao){
         instituicaofinanceiraService.vincularInstituicaoComLeilao(idLeilao, idInstituicao);
     }
+
+    @GetMapping("/consultar/{id}")
+    public ExibicaoInstituicaoFinanceiraDTO consultainstituicaoPorId(@PathVariable Long id){
+        return instituicaofinanceiraService.consultainstituicaoPorId(id);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ExibicaoInstituicaoFinanceiraDTO atualizarinstituicao(@PathVariable Long id, @RequestBody CadastroInstituicaoFinanceiraDTO cadastroInstituicaoFinanceiraDTO){
+        return instituicaofinanceiraService.atualizarinstituicao(id, cadastroInstituicaoFinanceiraDTO);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarinstituicaoPorId(@PathVariable Long id){
+        return instituicaofinanceiraService.deletarinstituicaoPorId(id);
+    }
+
 }

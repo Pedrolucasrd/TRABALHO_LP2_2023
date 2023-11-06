@@ -25,7 +25,7 @@ public class ClienteController {
         return clienteService.procurarClientePorCpf(cpf);
     }
 
-    @GetMapping("listar-todos")
+    @GetMapping("listar-todos-clientes")
     public List<ExibicaoListagemClientesDTO> listarTodosClientes (){
         return clienteService.listarTodosClientes();
     }

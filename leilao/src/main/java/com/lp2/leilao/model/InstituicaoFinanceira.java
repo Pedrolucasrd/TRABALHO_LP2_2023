@@ -24,6 +24,12 @@ public class InstituicaoFinanceira {
          this.cnpj=cadastroInstituicaoFinanceiraDTO.cnpj();
          this.nomeInstituicao=cadastroInstituicaoFinanceiraDTO.nomeInstituicao();
     }
+
+    public InstituicaoFinanceira(InstituicaoFinanceira instituicaoFinanceira, CadastroInstituicaoFinanceiraDTO cadastroInstituicaoFinanceiraDTO) {
+        this.id = instituicaoFinanceira.getId();
+        this.cnpj = cadastroInstituicaoFinanceiraDTO.cnpj() != null ? cadastroInstituicaoFinanceiraDTO.cnpj() : instituicaoFinanceira.getCnpj();
+        this.nomeInstituicao = cadastroInstituicaoFinanceiraDTO.nomeInstituicao() != null ? cadastroInstituicaoFinanceiraDTO.nomeInstituicao() : instituicaoFinanceira.getNomeInstituicao();
+    }
 }
 
 
