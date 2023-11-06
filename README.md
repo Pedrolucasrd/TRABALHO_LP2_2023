@@ -53,12 +53,55 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 
 ### Endpoints da API
 
-- /api/endpoint1: Descrição do endpoint 1.
-- /api/endpoint2: Descrição do endpoint 2.
+## produto-veiculo-controller
+
+- /produto-veiculo/mudar-leilao/{idProduto}/{idLeilao}
+- /produto-veiculo/atualizar/{id}
+- /produto-veiculo/criar/{leilaoId}
+- /produto-veiculo/listar-todos
+- /produto-veiculo/deletar/{id}
+
+## produto-informatica-controller
+
+- /produto-informatica/mudar-leilao/{idProduto}/{idLeilao}
+- /produto-informatica/atualizar/{id}
+- /produto-informatica/criar/{leilaoId}
+- /produto-informatica/listar-todos
+- /produto-informatica/deletar/{id}
+
+## leilao-controller
+- /leilao/atualizar/{id}
+- /leilao/criar
+- /leilao/consultar/{id}
+- /leilao/deletar/{id}
+
+## cliente-controller
+- /cliente/atualizar-cliente/{cpf}
+- /cliente
+- /cliente/procurar-por-cpf/{cpf}
+- /cliente/procurar-lances-por-cpf/{cpf}
+- /cliente/listar-todos
+- /cliente/deletar/{cpf}
+
+## lance-controller
+- /lance/gerar-lance-produto-informatica/{produtoId}/{clienteCpf}/{valor}/{categoriaProduto}
+-
+-
+-
+-
+
+
+## instituicao-financeira-controller
+- /instituicao-financeira/atualizar/{id}
+- /instituicao-financeira/vincular-leilao-instituicao/{idLeilao}/{idInstituicao}
+- /instituicao-financeira/criar
+- /instituicao-financeira/consultar/{id}
+- /instituicao-financeira/deletar/{id}
 
 ### Testes
 
 - Você pode executar testes unitários com o seguinte comando:
+
   
 ```
 mvn test
