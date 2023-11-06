@@ -85,15 +85,23 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 
 ## lance-controller
 - /lance/gerar-lance-produto-informatica/{produtoId}/{clienteCpf}/{valor}/{categoriaProduto}
+-
+-
+-
+-
 
 
 ## instituicao-financeira-controller
+- /instituicao-financeira/atualizar/{id}
 - /instituicao-financeira/vincular-leilao-instituicao/{idLeilao}/{idInstituicao}
 - /instituicao-financeira/criar
+- /instituicao-financeira/consultar/{id}
+- /instituicao-financeira/deletar/{id}
 
 ### Testes
 
 - Você pode executar testes unitários com o seguinte comando:
+
   
 ```
 mvn test
