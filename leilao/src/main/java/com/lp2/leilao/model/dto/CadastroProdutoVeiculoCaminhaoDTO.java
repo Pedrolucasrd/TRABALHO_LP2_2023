@@ -1,8 +1,10 @@
 package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Condicao;
+import com.lp2.leilao.model.ProdutoVeiculo;
 
-public record CadastroProdutoVeiculoDTO(
+public record CadastroProdutoVeiculoCaminhaoDTO(
+
         String tipoProduto,
         String marca,
         String modelo,
@@ -13,8 +15,11 @@ public record CadastroProdutoVeiculoDTO(
         Double quilometragem,
         Double motor,
         String cor,
-        Double precoInicial
+        Double precoInicial,
+
+        Integer capacidadeCarga
+
+
 ) {
+
 }
-
-

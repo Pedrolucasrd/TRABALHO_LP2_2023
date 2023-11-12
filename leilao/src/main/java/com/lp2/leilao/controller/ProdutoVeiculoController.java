@@ -40,6 +40,21 @@ public class ProdutoVeiculoController {
         return produtoService.criarProdutoVeiculoCarro(leilaoId, produtoVeiculo);
     }
 
+    @PostMapping("/criar/caminhao/{leilaoId}")
+    public ExibicaoProdutoVeiculoCaminhaoDTO adicionarProdutoCaminhao (@PathVariable Long leilaoId,
+                                                                             @RequestBody CadastroProdutoVeiculoCaminhaoDTO produtoVeiculo) {
+        return produtoService.criarProdutoVeiculoCaminhao(leilaoId, produtoVeiculo);
+
+
+    }
+    @PostMapping("/criar/utilitario/{leilaoId}")
+    public ExibicaoProdutoVeiculoUtilitarioDTO adicionarProdutoUtilitario (@PathVariable Long leilaoId,
+                                                                       @RequestBody CadastroProdutoVeiculoUtilitarioDTO produtoVeiculo) {
+        return produtoService.criarProdutoVeiculoUtilitario(leilaoId, produtoVeiculo);
+
+
+    }
+
     @GetMapping("/listar-todos")
     public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo (){
         return produtoService.listarProdutosVeiculo();

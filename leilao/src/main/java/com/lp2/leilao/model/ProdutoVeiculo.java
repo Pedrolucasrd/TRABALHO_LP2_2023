@@ -1,9 +1,7 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoCarroDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoMotocicletaDTO;
+import com.lp2.leilao.model.dto.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -93,6 +91,37 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoCarroDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoCaminhaoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoUtilitarioDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
         this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();

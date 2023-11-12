@@ -21,9 +21,9 @@ public class Motocicleta extends ProdutoVeiculo {
 
 
 
-    public Motocicleta(CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoDTO, Leilao leilao, Integer quilometragem) {
+    public Motocicleta(CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoDTO, Leilao leilao, Integer cilindradas) {
         super(cadastroProdutoVeiculoDTO,leilao);
-        this.cilindradas = quilometragem;
+        this.cilindradas = cilindradas;
     }
 }
 

@@ -57,6 +57,32 @@ public class ProdutoVeiculoService {
     }
 
 
+    public ExibicaoProdutoVeiculoCaminhaoDTO criarProdutoVeiculoCaminhao(Long leilaoId, CadastroProdutoVeiculoCaminhaoDTO cadastroProdutoVeiculoCaminhaoDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Caminhao caminhao = new Caminhao(cadastroProdutoVeiculoCaminhaoDTO, leilao.get(),cadastroProdutoVeiculoCaminhaoDTO.capacidadeCarga());
+        produtoRepository.save(caminhao);
+        return new ExibicaoProdutoVeiculoCaminhaoDTO(caminhao);
+    }
+
+    public ExibicaoProdutoVeiculoUtilitarioDTO criarProdutoVeiculoUtilitario(Long leilaoId, CadastroProdutoVeiculoUtilitarioDTO cadastroProdutoVeiculoUtilitarioDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Utilitario utilitario = new Utilitario(cadastroProdutoVeiculoUtilitarioDTO, leilao.get(),cadastroProdutoVeiculoUtilitarioDTO.capacidadePessoa());
+        produtoRepository.save(utilitario);
+        return new ExibicaoProdutoVeiculoUtilitarioDTO(utilitario);
+
+    }
+
+
+
+
+
+
     public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo() {
         List<ProdutoVeiculo> produtoVeiculoLista = produtoRepository.findAll();
         return produtoVeiculoLista.stream().map(produtoVeiculo ->
@@ -103,5 +129,7 @@ public class ProdutoVeiculoService {
         return new ExibicaoProdutoMudarLeilaoDTO(idProduto,idLeilao);
 
     }
+
+
 }
 
