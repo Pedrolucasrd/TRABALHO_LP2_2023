@@ -1,10 +1,9 @@
 package com.lp2.leilao.controller;
 
+import com.lp2.leilao.model.Motocicleta;
 import com.lp2.leilao.model.ProdutoVeiculo;
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoMudarLeilaoDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.repository.GenericRepository;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
 import com.lp2.leilao.service.ProdutoVeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,22 @@ public class ProdutoVeiculoController {
     @Autowired
     private ProdutoVeiculoService produtoService;
 
+
     @PostMapping("/criar/{leilaoId}")
-    public ExibicaoProdutoVeiculoDTO adicionarProduto (@PathVariable Long leilaoId,
-                                                       @RequestBody CadastroProdutoVeiculoDTO produtoVeiculo){
-        return produtoService.criarProdutoVeiculo(leilaoId, produtoVeiculo);
+    public ProdutoVeiculo adicionarProduto (@PathVariable Long leilaoId,
+                                                       @RequestBody Motocicleta produtoVeiculo){
+        return produtoRepository.save(produtoVeiculo);
+    }
+    @PostMapping("/criar/motocicleta/{leilaoId}")
+    public ExibicaoProdutoVeiculoMotocicletaDTO adicionarProdutoMotocicleta (@PathVariable Long leilaoId,
+                                                       @RequestBody CadastroProdutoVeiculoMotocicletaDTO produtoVeiculo){
+        return produtoService.criarProdutoVeiculoMotocicleta(leilaoId, produtoVeiculo);
+    }
+
+    @PostMapping("/criar/carro/{leilaoId}")
+    public ExibicaoProdutoVeiculoCarroDTO adicionarProdutoCarro (@PathVariable Long leilaoId,
+                                                                  @RequestBody CadastroProdutoVeiculoCarroDTO produtoVeiculo){
+        return produtoService.criarProdutoVeiculoCarro(leilaoId, produtoVeiculo);
     }
 
     @GetMapping("/listar-todos")

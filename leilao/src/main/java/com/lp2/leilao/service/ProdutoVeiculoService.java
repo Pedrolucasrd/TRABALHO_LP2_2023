@@ -1,12 +1,13 @@
 package com.lp2.leilao.service;
 
-import com.lp2.leilao.model.Leilao;
-import com.lp2.leilao.model.ProdutoInformatica;
-import com.lp2.leilao.model.ProdutoVeiculo;
+import com.lp2.leilao.model.*;
 import com.lp2.leilao.model.dto.*;
 import com.lp2.leilao.repository.LeilaoRepository;
+import com.lp2.leilao.repository.MotocicletaRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,10 @@ public class ProdutoVeiculoService {
     @Autowired
     private LeilaoRepository leilaoRepository;
 
+    @Autowired
+    private MotocicletaRepository motocicletaRepository;
+
+
     public ExibicaoProdutoVeiculoDTO criarProdutoVeiculo(Long leilaoId, CadastroProdutoVeiculoDTO cadastroProdutoVeiculoDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
@@ -32,6 +37,25 @@ public class ProdutoVeiculoService {
         produtoRepository.save(produtoVeiculo);
         return new ExibicaoProdutoVeiculoDTO(produtoVeiculo);
     }
+    public ExibicaoProdutoVeiculoMotocicletaDTO criarProdutoVeiculoMotocicleta(Long leilaoId, CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoMotocicletaDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Motocicleta motocicleta = new Motocicleta(cadastroProdutoVeiculoMotocicletaDTO, leilao.get(), cadastroProdutoVeiculoMotocicletaDTO.cilindradas());
+        produtoRepository.save(motocicleta);
+        return new ExibicaoProdutoVeiculoMotocicletaDTO(motocicleta);
+    }
+    public ExibicaoProdutoVeiculoCarroDTO criarProdutoVeiculoCarro(Long leilaoId, CadastroProdutoVeiculoCarroDTO cadastroProdutoVeiculoCarroDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Carro carro = new Carro(cadastroProdutoVeiculoCarroDTO, leilao.get(),cadastroProdutoVeiculoCarroDTO.quantidadePortas());
+        produtoRepository.save(carro);
+        return new ExibicaoProdutoVeiculoCarroDTO(carro);
+    }
+
 
     public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo() {
         List<ProdutoVeiculo> produtoVeiculoLista = produtoRepository.findAll();
