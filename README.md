@@ -43,13 +43,13 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 ```
 ### O aplicativo estará disponível 
 
-- http://localhost:8080
+- http://localhost:5050
 
 ### Acesso ao Swagger
 
 ### O Swagger é uma ferramenta útil para documentar e testar APIs. Você pode acessar a documentação Swagger em:
 
-- http://localhost:8080/swagger-ui.html
+- http://localhost:5050/swagger-ui.html
 
 ### Endpoints da API
 
@@ -58,6 +58,11 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 - /produto-veiculo/mudar-leilao/{idProduto}/{idLeilao}
 - /produto-veiculo/atualizar/{id}
 - /produto-veiculo/criar/{leilaoId}
+- /produto-veiculo/criar/utilitario/{leilaoId}
+- /produto-veiculo/criar/motocicleta/{leilaoId}
+- /produto-veiculo/criar/carro/{leilaoId}
+- /produto-veiculo/criar/caminhao/{leilaoId}
+- /produto-veiculo/{idProduto}
 - /produto-veiculo/listar-todos
 - /produto-veiculo/deletar/{id}
 
@@ -66,11 +71,16 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 - /produto-informatica/mudar-leilao/{idProduto}/{idLeilao}
 - /produto-informatica/atualizar/{id}
 - /produto-informatica/criar/{leilaoId}
+- /produto-informatica/criar/switch/{leilaoId}
+- /produto-informatica/criar/roteador/{leilaoId}
+- /produto-informatica/criar/notebook/{leilaoId}
+- /produto-informatica/criar/monitor/{leilaoId}
+- /produto-informatica/criar/hub/{leilaoId}
+- /produto-informatica/criar/{leilaoId}
 - /produto-informatica/listar-todos
 - /produto-informatica/deletar/{id}
 
 ## leilao-controller
-- /leilao/atualizar/{id}
 - /leilao/criar
 - /leilao/consultar/{id}
 - /leilao/deletar/{id}
@@ -85,10 +95,6 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 
 ## lance-controller
 - /lance/gerar-lance-produto-informatica/{produtoId}/{clienteCpf}/{valor}/{categoriaProduto}
--
--
--
--
 
 
 ## instituicao-financeira-controller
@@ -96,14 +102,6 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 - /instituicao-financeira/vincular-leilao-instituicao/{idLeilao}/{idInstituicao}
 - /instituicao-financeira/criar
 - /instituicao-financeira/consultar/{id}
+- /instituicao-financeira/consultar/leilao/{id}
 - /instituicao-financeira/deletar/{id}
 
-### Testes
-
-- Você pode executar testes unitários com o seguinte comando:
-
-  
-```
-mvn test
-
-```
