@@ -46,6 +46,11 @@ public class ProdutoInformaticaController {
         return produtoService.criarProdutoInformaticaRoteador(leilaoId, cadastroProdutoInformaticaRoteadorDTO);
     }
 
+    @GetMapping("{idProduto}")
+    public Object selecionarProdutoInformatica (@PathVariable Long idProduto){
+        return produtoService.selecionarProdutoInformatica(idProduto);
+    }
+
     @GetMapping("/listar-todos")
     public List<ExibicaoProdutoInformaticaDTO> listarProdutosInformatica (){
         return produtoService.listarProdutosInformatica();

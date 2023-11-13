@@ -129,4 +129,11 @@ public class ProdutoInformaticaService {
         produtoRepository.save(produtoInformatica);
         return new ExibicaoProdutoInformaticaRoteadorDTO(produtoInformatica);
     }
+
+    public Object selecionarProdutoInformatica(Long idProduto) {
+        Optional<ProdutoInformatica> produtoInformatica = produtoRepository.findById(idProduto);
+        if(produtoInformatica.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+        }        return produtoInformatica.get().criacaoDTO();
+    }
 }

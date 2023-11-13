@@ -3,10 +3,11 @@ package com.lp2.leilao.model.dto;
 import com.lp2.leilao.model.Hub;
 import com.lp2.leilao.model.Switch;
 import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoInformatica;
 
 public record ExibicaoProdutoInformaticaSwitchDTO(
         Long id,
-        String tipoProduto,
+        TipoProdutoInformatica tipoProduto,
         String marca,
         String modelo,
         String descricao,

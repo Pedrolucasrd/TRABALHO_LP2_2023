@@ -2,10 +2,11 @@ package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.enums.Condicao;
 import com.lp2.leilao.model.Hub;
+import com.lp2.leilao.model.enums.TipoProdutoInformatica;
 
 public record ExibicaoProdutoInformaticaHubDTO(
         Long id,
-        String tipoProduto,
+        TipoProdutoInformatica tipoProduto,
         String marca,
         String modelo,
         String descricao,
@@ -14,7 +15,7 @@ public record ExibicaoProdutoInformaticaHubDTO(
         Integer numeroSerie,
         String cor,
         Double PrecoInicial,
-        String quantidadePortas,
+        Integer quantidadePortas,
         Long leilaoId
 ) {
     public ExibicaoProdutoInformaticaHubDTO(Hub produtoInformatica) {

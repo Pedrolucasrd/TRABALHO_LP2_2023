@@ -2,11 +2,12 @@ package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Caminhao;
 import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoVeiculo;
 
 public record ExibicaoProdutoVeiculoCaminhaoDTO(
 
         Long id,
-        String tipoProduto,
+        TipoProdutoVeiculo tipoProduto,
         String marca,
         String modelo,
         String descricao,

@@ -1,12 +1,9 @@
 package com.lp2.leilao.service;
 
 import com.lp2.leilao.model.InstituicaoFinanceira;
-import com.lp2.leilao.model.InstituicaoFinanceiraLeilao;
 import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.dto.CadastroInstituicaoFinanceiraDTO;
 import com.lp2.leilao.model.dto.ExibicaoInstituicaoFinanceiraDTO;
-import com.lp2.leilao.model.pk.PkLeilaoInstituicao;
-import com.lp2.leilao.repository.InstituicaoFinanceiraLeilaoRepository;
 import com.lp2.leilao.repository.InstituicaoFinanceiraRepository;
 import com.lp2.leilao.repository.LeilaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,8 +21,8 @@ public class InstituicaoFinanceiraService {
     @Autowired
     private InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
 
-    @Autowired
-    private InstituicaoFinanceiraLeilaoRepository instituicaoFinanceiraLeilaoRepository;
+//    @Autowired
+//    private InstituicaoFinanceiraLeilaoRepository instituicaoFinanceiraLeilaoRepository;
 
     @Autowired
     private LeilaoRepository leilaoRepository;
@@ -36,15 +35,11 @@ public class InstituicaoFinanceiraService {
     }
 
     public void vincularInstituicaoComLeilao(Long idLeilao, Long idInstituicao){
-        InstituicaoFinanceiraLeilao instituicaoFinanceiraLeilao = new InstituicaoFinanceiraLeilao();
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         Optional<InstituicaoFinanceira> instituicaoFinanceira = instituicaoFinanceiraRepository.findById(idInstituicao);
-        PkLeilaoInstituicao pkLeilaoInstituicao = new PkLeilaoInstituicao();
-        pkLeilaoInstituicao.setLeilao(leilao.get());
-        pkLeilaoInstituicao.setInstituicaoFinanceira(instituicaoFinanceira.get());
-        instituicaoFinanceiraLeilao.setPkLeilaoInstituicao(pkLeilaoInstituicao);
 
-        instituicaoFinanceiraLeilaoRepository.save(instituicaoFinanceiraLeilao);
+        instituicaoFinanceira.get().adicionarLeilao(leilao.get());
+        instituicaoFinanceiraRepository.save(instituicaoFinanceira.get());
     }
 
     public ExibicaoInstituicaoFinanceiraDTO consultainstituicaoPorId(Long id) {
@@ -53,6 +48,13 @@ public class InstituicaoFinanceiraService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituição Financeira não encontrada !!!");
         }
         return  new ExibicaoInstituicaoFinanceiraDTO(instituicaoFinanceira.get());
+    }
+    public List<ExibicaoInstituicaoFinanceiraDTO> consultainstituicaoPorLeilao(Long idLeilao) {
+        List<InstituicaoFinanceira> instituicaoFinanceira =  instituicaoFinanceiraRepository.findByLeilaoId(idLeilao);
+        if(instituicaoFinanceira.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituição Financeira não encontrada !!!");
+        }
+        return instituicaoFinanceira.stream().map(ExibicaoInstituicaoFinanceiraDTO::new).toList();
     }
 
     public ExibicaoInstituicaoFinanceiraDTO atualizarinstituicao(Long id, CadastroInstituicaoFinanceiraDTO cadastroInstituicaoFinanceiraDTO) {

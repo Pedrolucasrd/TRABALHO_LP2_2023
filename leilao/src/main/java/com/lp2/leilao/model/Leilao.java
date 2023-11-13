@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Entity
 @Table(name = "leilao")
@@ -28,6 +29,13 @@ public class Leilao {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFechamento;
     private StatusLeilao status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "leilao_instituicao",
+            joinColumns = @JoinColumn(name = "leilao_id"),
+            inverseJoinColumns = @JoinColumn(name = "instituicao_id"))
+    private List<InstituicaoFinanceira> instituicaoFinanceira;
 
     public Leilao(CadastroLeilaoDTO leilao) {
         this.nome = leilao.nome();

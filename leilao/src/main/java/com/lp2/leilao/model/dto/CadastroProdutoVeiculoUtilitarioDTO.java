@@ -5,7 +5,6 @@ import com.lp2.leilao.model.enums.Condicao;
 public record CadastroProdutoVeiculoUtilitarioDTO(
 
 
-        String tipoProduto,
         String marca,
         String modelo,
         String descricao,

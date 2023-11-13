@@ -3,11 +3,12 @@ package com.lp2.leilao.model.dto;
 import com.lp2.leilao.model.Hub;
 import com.lp2.leilao.model.Roteador;
 import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoInformatica;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 public record ExibicaoProdutoInformaticaRoteadorDTO(
         Long id,
-        String tipoProduto,
+        TipoProdutoInformatica tipoProduto,
         String marca,
         String modelo,
         String descricao,

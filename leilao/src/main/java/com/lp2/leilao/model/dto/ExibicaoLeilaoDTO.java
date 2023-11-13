@@ -4,6 +4,7 @@ import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.enums.StatusLeilao;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record ExibicaoLeilaoDTO(
         Long id,

@@ -3,7 +3,6 @@ package com.lp2.leilao.model.dto;
 import com.lp2.leilao.model.enums.Condicao;
 
 public record CadastroProdutoInformaticaMonitorDTO(
-        String tipoProduto,
         String marca,
         String modelo,
         String descricao,

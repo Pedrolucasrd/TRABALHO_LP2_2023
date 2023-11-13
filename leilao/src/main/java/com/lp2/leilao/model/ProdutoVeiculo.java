@@ -3,6 +3,7 @@ package com.lp2.leilao.model;
 
 import com.lp2.leilao.model.dto.*;
 import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoVeiculo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class ProdutoVeiculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipoProduto;
+    private TipoProdutoVeiculo tipoProduto;
 
     private String marca;
 
@@ -62,7 +63,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.UTILITARIO;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
@@ -77,7 +78,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.MOTOCICLETA;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
@@ -92,7 +93,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoCarroDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.CARRO;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
@@ -107,7 +108,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoCaminhaoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.CAMINHAO;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
@@ -123,7 +124,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoUtilitarioDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.UTILITARIO;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
