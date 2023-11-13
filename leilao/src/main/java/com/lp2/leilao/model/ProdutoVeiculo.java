@@ -2,6 +2,7 @@ package com.lp2.leilao.model;
 
 
 import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.enums.Condicao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -135,6 +136,12 @@ public class ProdutoVeiculo {
         this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
         this.leilao = leilao;
     }
+
+    public Object criacaoDTO() {
+        // Implementação padrão ou vazia na classe base
+        return null;
+    }
+
 
     @Override
     public String toString() {

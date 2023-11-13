@@ -1,7 +1,7 @@
 package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Leilao;
-import com.lp2.leilao.model.StatusLeilao;
+import com.lp2.leilao.model.enums.StatusLeilao;
 
 import java.time.LocalDateTime;
 

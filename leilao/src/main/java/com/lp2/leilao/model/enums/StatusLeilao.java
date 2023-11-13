@@ -1,4 +1,4 @@
-package com.lp2.leilao.model;
+package com.lp2.leilao.model.enums;
 
 public enum StatusLeilao {
     EM_ABERTO,

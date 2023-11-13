@@ -1,9 +1,7 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.CategoriaProduto;
-import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.enums.CategoriaProduto;
 import com.lp2.leilao.model.dto.ExibicaoLanceProdutoDTO;
-import com.lp2.leilao.model.dto.ExibicaoLanceProdutoVeiculoDTO;
 import com.lp2.leilao.service.LanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

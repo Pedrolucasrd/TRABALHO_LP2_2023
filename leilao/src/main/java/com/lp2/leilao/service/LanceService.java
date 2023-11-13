@@ -2,7 +2,7 @@ package com.lp2.leilao.service;
 
 import com.lp2.leilao.model.*;
 import com.lp2.leilao.model.dto.ExibicaoLanceProdutoDTO;
-import com.lp2.leilao.model.dto.ExibicaoLanceProdutoVeiculoDTO;
+import com.lp2.leilao.model.enums.CategoriaProduto;
 import com.lp2.leilao.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,7 +67,7 @@ public class LanceService {
         return new ExibicaoLanceProdutoDTO(lanceProdutoVeiculo);
     }
 
-    public ExibicaoLanceProdutoDTO gerarLanceProduto (Long produtoId, String clienteCpf, Double valor,CategoriaProduto categoriaProduto){
+    public ExibicaoLanceProdutoDTO gerarLanceProduto (Long produtoId, String clienteCpf, Double valor, CategoriaProduto categoriaProduto){
         switch (categoriaProduto){
             case VEICULO -> {
                 return gerarLanceProdutoVeiculo(produtoId,clienteCpf,valor);

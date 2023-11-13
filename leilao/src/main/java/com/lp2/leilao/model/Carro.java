@@ -1,7 +1,6 @@
 package com.lp2.leilao.model;
 
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoCarroDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoMotocicletaDTO;
+import com.lp2.leilao.model.dto.*;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +18,11 @@ public class Carro extends ProdutoVeiculo {
     public Carro(CadastroProdutoVeiculoCarroDTO cadastroProdutoVeiculoCarroDTO, Leilao leilao,Integer quantidadePortas) {
         super(cadastroProdutoVeiculoCarroDTO,leilao);
         this.quantidadePortas = quantidadePortas;
+    }
+
+    @Override
+    public ExibicaoProdutoVeiculoCarroDTO criacaoDTO() {
+        return new ExibicaoProdutoVeiculoCarroDTO(this);
     }
 }
 

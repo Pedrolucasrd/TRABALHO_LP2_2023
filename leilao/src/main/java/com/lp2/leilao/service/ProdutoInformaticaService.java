@@ -1,10 +1,7 @@
 package com.lp2.leilao.service;
 
-import com.lp2.leilao.model.Leilao;
-import com.lp2.leilao.model.ProdutoInformatica;
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoMudarLeilaoDTO;
+import com.lp2.leilao.model.*;
+import com.lp2.leilao.model.dto.*;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,4 +81,52 @@ public class ProdutoInformaticaService {
 
     }
 
+    public ExibicaoProdutoInformaticaNotebookDTO criarProdutoInformaticaNotebook(Long leilaoId, CadastroProdutoInformaticaNotebookDTO cadastroProdutoInformaticaDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Notebook produtoInformatica = new Notebook(cadastroProdutoInformaticaDTO, leilao.get(), cadastroProdutoInformaticaDTO.tamanhoTela());
+        produtoRepository.save(produtoInformatica);
+        return new ExibicaoProdutoInformaticaNotebookDTO(produtoInformatica);
+    }
+
+    public ExibicaoProdutoInformaticaMonitorDTO criarProdutoInformaticaMonitor(Long leilaoId, CadastroProdutoInformaticaMonitorDTO cadastroProdutoInformaticaMonitorDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Monitor produtoInformatica = new Monitor(cadastroProdutoInformaticaMonitorDTO, leilao.get(), cadastroProdutoInformaticaMonitorDTO.tamanhoTela());
+        produtoRepository.save(produtoInformatica);
+        return new ExibicaoProdutoInformaticaMonitorDTO(produtoInformatica);
+    }
+
+    public ExibicaoProdutoInformaticaHubDTO criarProdutoInformaticaHub(Long leilaoId, CadastroProdutoInformaticaHubDTO cadastroProdutoInformaticaHubDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Hub produtoInformatica = new Hub(cadastroProdutoInformaticaHubDTO, leilao.get(), cadastroProdutoInformaticaHubDTO.quantidadePortas());
+        produtoRepository.save(produtoInformatica);
+        return new ExibicaoProdutoInformaticaHubDTO(produtoInformatica);
+    }
+
+    public ExibicaoProdutoInformaticaSwitchDTO criarProdutoInformaticaSwitch(Long leilaoId, CadastroProdutoInformaticaSwitchDTO cadastroProdutoInformaticaSwitchDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Switch produtoInformatica = new Switch(cadastroProdutoInformaticaSwitchDTO, leilao.get(), cadastroProdutoInformaticaSwitchDTO.quantidadePortas());
+        produtoRepository.save(produtoInformatica);
+        return new ExibicaoProdutoInformaticaSwitchDTO(produtoInformatica);
+    }
+    public ExibicaoProdutoInformaticaRoteadorDTO criarProdutoInformaticaRoteador(Long leilaoId, CadastroProdutoInformaticaRoteadorDTO cadastroProdutoInformaticaRoteadorDTO) {
+        Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
+        if (leilao.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+        }
+        Roteador produtoInformatica = new Roteador(cadastroProdutoInformaticaRoteadorDTO, leilao.get(), cadastroProdutoInformaticaRoteadorDTO.quantidadePortas());
+        produtoRepository.save(produtoInformatica);
+        return new ExibicaoProdutoInformaticaRoteadorDTO(produtoInformatica);
+    }
 }

@@ -1,6 +1,8 @@
 package com.lp2.leilao.model;
 
 import com.lp2.leilao.model.dto.CadastroProdutoVeiculoCaminhaoDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoCaminhaoDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoUtilitarioDTO;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,10 @@ public class Caminhao  extends ProdutoVeiculo {
         this.capacidadeCarga = capacidadeCarga;
     }
 
+    @Override
+    public ExibicaoProdutoVeiculoCaminhaoDTO criacaoDTO() {
+        return new ExibicaoProdutoVeiculoCaminhaoDTO(this);
+    }
 }
 
 

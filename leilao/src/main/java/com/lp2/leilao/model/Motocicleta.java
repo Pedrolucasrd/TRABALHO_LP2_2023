@@ -2,6 +2,8 @@ package com.lp2.leilao.model;
 
 import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
 import com.lp2.leilao.model.dto.CadastroProdutoVeiculoMotocicletaDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoCarroDTO;
+import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoMotocicletaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +26,11 @@ public class Motocicleta extends ProdutoVeiculo {
     public Motocicleta(CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoDTO, Leilao leilao, Integer cilindradas) {
         super(cadastroProdutoVeiculoDTO,leilao);
         this.cilindradas = cilindradas;
+    }
+
+    @Override
+    public ExibicaoProdutoVeiculoMotocicletaDTO criacaoDTO() {
+        return new ExibicaoProdutoVeiculoMotocicletaDTO(this);
     }
 }
 

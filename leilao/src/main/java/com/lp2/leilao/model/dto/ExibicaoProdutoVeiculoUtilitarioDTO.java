@@ -1,7 +1,6 @@
 package com.lp2.leilao.model.dto;
 
-import com.lp2.leilao.model.Caminhao;
-import com.lp2.leilao.model.Condicao;
+import com.lp2.leilao.model.enums.Condicao;
 import com.lp2.leilao.model.Utilitario;
 
 public record ExibicaoProdutoVeiculoUtilitarioDTO(

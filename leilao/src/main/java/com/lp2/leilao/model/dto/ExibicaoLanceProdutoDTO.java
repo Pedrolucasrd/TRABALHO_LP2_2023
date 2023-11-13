@@ -1,6 +1,6 @@
 package com.lp2.leilao.model.dto;
 
-import com.lp2.leilao.model.CategoriaProduto;
+import com.lp2.leilao.model.enums.CategoriaProduto;
 import com.lp2.leilao.model.LanceProdutoInformatica;
 import com.lp2.leilao.model.LanceProdutoVeiculo;
 

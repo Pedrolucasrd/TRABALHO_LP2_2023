@@ -1,9 +1,10 @@
 package com.lp2.leilao.model.dto;
 
+import com.lp2.leilao.model.Hub;
+import com.lp2.leilao.model.Switch;
 import com.lp2.leilao.model.enums.Condicao;
-import com.lp2.leilao.model.ProdutoInformatica;
 
-public record ExibicaoProdutoInformaticaDTO(
+public record ExibicaoProdutoInformaticaSwitchDTO(
         Long id,
         String tipoProduto,
         String marca,
@@ -14,9 +15,10 @@ public record ExibicaoProdutoInformaticaDTO(
         Integer numeroSerie,
         String cor,
         Double PrecoInicial,
+        Integer quantidadePortas,
         Long leilaoId
 ) {
-    public ExibicaoProdutoInformaticaDTO(ProdutoInformatica produtoInformatica) {
+    public ExibicaoProdutoInformaticaSwitchDTO(Switch produtoInformatica) {
         this(produtoInformatica.getId(),
                 produtoInformatica.getTipoProduto(),
                 produtoInformatica.getMarca(),
@@ -27,6 +29,7 @@ public record ExibicaoProdutoInformaticaDTO(
                 produtoInformatica.getNumeroSerie(),
                 produtoInformatica.getCor(),
                 produtoInformatica.getPrecoInicial(),
+                produtoInformatica.getQuantidadePortas(),
                 produtoInformatica.getLeilao().getId());
     }
 

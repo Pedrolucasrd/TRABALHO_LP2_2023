@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/produto-veiculo")
@@ -58,6 +59,11 @@ public class ProdutoVeiculoController {
     @GetMapping("/listar-todos")
     public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo (){
         return produtoService.listarProdutosVeiculo();
+    }
+
+    @GetMapping("{idProduto}")
+    public Object selecionarProdutoVeiculo (@PathVariable Long idProduto){
+        return produtoService.selecionarProdutoVeiculo(idProduto);
     }
 
     @PutMapping("atualizar/{id}")

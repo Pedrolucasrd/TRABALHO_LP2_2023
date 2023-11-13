@@ -1,8 +1,7 @@
 package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Carro;
-import com.lp2.leilao.model.Condicao;
-import com.lp2.leilao.model.Motocicleta;
+import com.lp2.leilao.model.enums.Condicao;
 
 public record ExibicaoProdutoVeiculoCarroDTO(
         Long id,

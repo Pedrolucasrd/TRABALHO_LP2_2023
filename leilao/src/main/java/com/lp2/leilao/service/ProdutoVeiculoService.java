@@ -131,5 +131,12 @@ public class ProdutoVeiculoService {
     }
 
 
+    public Object selecionarProdutoVeiculo(Long idProduto) {
+        Optional<ProdutoVeiculo> produtoVeiculo = produtoRepository.findById(idProduto);
+        if(produtoVeiculo.isEmpty() ){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+        }        return produtoVeiculo.get().criacaoDTO();
+    }
+
 }
 
