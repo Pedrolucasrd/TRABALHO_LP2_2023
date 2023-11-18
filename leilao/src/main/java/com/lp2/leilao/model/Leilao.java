@@ -3,6 +3,7 @@ package com.lp2.leilao.model;
 
 import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
 import com.lp2.leilao.model.enums.StatusLeilao;
+import com.lp2.leilao.util.FormatadorData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +41,8 @@ public class Leilao {
     public Leilao(CadastroLeilaoDTO leilao) {
         this.nome = leilao.nome();
         this.descricao = leilao.descricao();
+        this.dataInicio = FormatadorData.formatarData(leilao.dataInicio());
+        this.dataFechamento = FormatadorData.formatarData(leilao.dataFechamento());
         this.status = StatusLeilao.EM_ABERTO;
     }
 

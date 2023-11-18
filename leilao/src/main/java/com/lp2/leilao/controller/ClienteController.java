@@ -40,7 +40,6 @@ public class ClienteController {
         return clienteService.procurarLancesPorCpf(cpf);
     }
 
-
     @DeleteMapping("deletar/{cpf}")
     public ResponseEntity<String> deletarClientePeloCpf (@PathVariable String cpf){
         return clienteService.deletarClientePeloCpf(cpf);

@@ -2,10 +2,7 @@ package com.lp2.leilao.service;
 
 import com.lp2.leilao.model.*;
 import com.lp2.leilao.model.dto.*;
-import com.lp2.leilao.repository.LeilaoRepository;
-import com.lp2.leilao.repository.MotocicletaRepository;
-import com.lp2.leilao.repository.ProdutoInformaticaRepository;
-import com.lp2.leilao.repository.ProdutoVeiculoRepository;
+import com.lp2.leilao.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class ProdutoVeiculoService {
 
     @Autowired
     private MotocicletaRepository motocicletaRepository;
+    @Autowired
+    private LanceProdutoVeiculoRepository lanceProdutoVeiculoRepository;
 
 
     public ExibicaoProdutoVeiculoDTO criarProdutoVeiculo(Long leilaoId, CadastroProdutoVeiculoDTO cadastroProdutoVeiculoDTO) {
@@ -120,6 +119,12 @@ public class ProdutoVeiculoService {
         if(produtoVeiculo.isEmpty() ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
         }
+        LanceProdutoVeiculo lanceProdutoVeiculo = lanceProdutoVeiculoRepository.findByProdutoVeiculo(produtoVeiculo.get());
+
+        if(lanceProdutoVeiculo != null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto já possui lance!");
+        }
+
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         if(leilao.isEmpty() ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");

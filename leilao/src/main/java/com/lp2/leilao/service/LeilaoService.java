@@ -1,14 +1,18 @@
 package com.lp2.leilao.service;
 
+import com.lp2.leilao.exception.SolicitacaoNaoEncontrada;
 import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.dto.*;
 import com.lp2.leilao.repository.*;
+import com.lp2.leilao.util.FormatadorData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,9 +41,16 @@ public class LeilaoService {
 
 
     public ExibicaoLeilaoCriadoDTO criarNovoLeilao (CadastroLeilaoDTO leilaoDTO){
+        LocalDateTime dataInicio = FormatadorData.formatarData(leilaoDTO.dataInicio());
+        LocalDateTime dataFechamento = FormatadorData.formatarData(leilaoDTO.dataFechamento());
         if(leilaoDTO.descricao().length() <= 15){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Descrição muito curta!");
+            throw new SolicitacaoNaoEncontrada("Descrição muito curta!");
         }
+
+        if(dataFechamento.isBefore(dataInicio)){
+            throw new SolicitacaoNaoEncontrada("Data de inicio não pode ser antes da de fechamento!");
+        }
+
         Leilao leilao = new Leilao(leilaoDTO);
         leilaoRepository.save(leilao);
         return new ExibicaoLeilaoCriadoDTO(leilao);
@@ -89,5 +100,9 @@ public class LeilaoService {
         } else {
             return ResponseEntity.ok().body("Erro ao deletar leilão!");
         }
+    }
+
+    public List<ExibicaoLeilaoDTO> listarLeiloes() {
+        return leilaoRepository.findAllByOrderByDataInicio().stream().map(leilao -> new ExibicaoLeilaoDTO(leilao)).toList();
     }
 }

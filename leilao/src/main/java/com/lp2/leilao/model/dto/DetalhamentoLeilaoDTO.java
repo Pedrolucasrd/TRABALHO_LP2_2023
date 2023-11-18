@@ -2,6 +2,7 @@ package com.lp2.leilao.model.dto;
 
 import com.lp2.leilao.model.Leilao;
 import com.lp2.leilao.model.enums.StatusLeilao;
+import com.lp2.leilao.util.ConfenciaStatusLeilao;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,6 @@ public record DetalhamentoLeilaoDTO(
                 leilao.getDataFechamento(),
                 produtos,
                 instituicoesFinanceira,
-                leilao.getStatus());
+                ConfenciaStatusLeilao.conferirStatus(leilao));
     }
 }

@@ -2,6 +2,7 @@ package com.lp2.leilao.service;
 
 import com.lp2.leilao.model.*;
 import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.repository.LanceProdutoInformaticaRepository;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ProdutoInformaticaService {
 
     @Autowired
     private LeilaoRepository leilaoRepository;
+
+    @Autowired
+    private LanceProdutoInformaticaRepository lanceProdutoInformaticaRepository;
 
     public ExibicaoProdutoInformaticaDTO criarProdutoInformatica(Long leilaoId, CadastroProdutoInformaticaDTO cadastroProdutoInformaticaDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
@@ -68,9 +72,17 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoMudarLeilaoDTO mudarLeilaoProdutoInformatica(Long idProduto, Long idLeilao) {
 
         Optional<ProdutoInformatica> produtoInformatica = produtoRepository.findById(idProduto);
+
+        LanceProdutoInformatica lanceProdutoInformatica = lanceProdutoInformaticaRepository.findByProdutoInformatica(produtoInformatica.get());
+
+        if(lanceProdutoInformatica != null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto já possui lance!");
+        }
+
         if(produtoInformatica.isEmpty() ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
         }
+
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         if(leilao.isEmpty() ){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");

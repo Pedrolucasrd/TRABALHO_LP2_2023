@@ -39,6 +39,11 @@ public class ProdutoInformatica {
 
     private Double precoInicial;
 
+    @Transient
+    @ElementCollection
+//    @JoinColumn(name = "id_lance_produto")
+    private LanceProdutoInformatica lanceProdutoInformatica;
+
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")
