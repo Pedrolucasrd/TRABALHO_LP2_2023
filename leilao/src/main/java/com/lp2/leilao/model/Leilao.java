@@ -1,7 +1,9 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.dto.leilao.CadastroLeilaoDTO;
+import com.lp2.leilao.model.enums.StatusLeilao;
+import com.lp2.leilao.util.FormatadorData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Entity
 @Table(name = "leilao")
@@ -23,14 +26,29 @@ public class Leilao {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDateTime dataAbertura = LocalDateTime.now(ZoneId.systemDefault()).minusHours(3);
+    private LocalDateTime dataAbertura = LocalDateTime.now(ZoneId.systemDefault());
     private LocalDateTime dataInicio;
     private LocalDateTime dataFechamento;
     private StatusLeilao status;
 
+    @ManyToOne
+    @JoinColumn(name = "numero", referencedColumnName = "numero")
+    @JoinColumn(name = "cep", referencedColumnName = "cep")
+    public Localizacao localizacao;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "leilao_instituicao",
+            joinColumns = @JoinColumn(name = "leilao_id"),
+            inverseJoinColumns = @JoinColumn(name = "instituicao_id"))
+    private List<InstituicaoFinanceira> instituicaoFinanceira;
+
     public Leilao(CadastroLeilaoDTO leilao) {
         this.nome = leilao.nome();
         this.descricao = leilao.descricao();
+        this.dataInicio = FormatadorData.formatarData(leilao.dataInicio());
+        this.dataFechamento = FormatadorData.formatarData(leilao.dataFechamento());
         this.status = StatusLeilao.EM_ABERTO;
     }
 

@@ -1,28 +1,29 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.produtoInformatica.*;
+import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoInformatica;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Optional;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "produto_informatica")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ProdutoInformatica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipoProduto;
+    private TipoProdutoInformatica tipoProduto;
 
     private String marca;
 
@@ -40,6 +41,8 @@ public class ProdutoInformatica {
 
     private Double precoInicial;
 
+    @OneToMany(mappedBy = "produtoInformatica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LanceProdutoInformatica> lances;
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")
@@ -61,6 +64,19 @@ public class ProdutoInformatica {
     }
 
     public ProdutoInformatica(CadastroProdutoInformaticaDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoInformatica.SWITCH;
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaNotebookDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
         this.tipoProduto = cadastroProdutoInformaticaDTO.tipoProduto();
         this.marca = cadastroProdutoInformaticaDTO.marca();
         this.modelo = cadastroProdutoInformaticaDTO.modelo();
@@ -71,6 +87,63 @@ public class ProdutoInformatica {
         this.cor = cadastroProdutoInformaticaDTO.cor();
         this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
         this.leilao = leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaMonitorDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoInformatica.MONITOR;
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaHubDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoInformatica.HUB;
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaSwitchDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoInformatica.SWITCH;
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoInformatica(CadastroProdutoInformaticaRoteadorDTO cadastroProdutoInformaticaDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoInformatica.ROTEADOR;
+        this.marca = cadastroProdutoInformaticaDTO.marca();
+        this.modelo = cadastroProdutoInformaticaDTO.modelo();
+        this.descricao = cadastroProdutoInformaticaDTO.descricao();
+        this.anoFabricacao = cadastroProdutoInformaticaDTO.anoFabricacao();
+        this.condicao = cadastroProdutoInformaticaDTO.condicao();
+        this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
+        this.cor = cadastroProdutoInformaticaDTO.cor();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public Object criacaoDTO() {
+        // Implementação padrão ou vazia na classe base
+        return null;
     }
 
 }

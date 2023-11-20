@@ -1,25 +1,29 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.produtoVeiculo.*;
+import com.lp2.leilao.model.enums.Condicao;
+import com.lp2.leilao.model.enums.TipoProdutoVeiculo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "produto_veiculo")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class ProdutoVeiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipoProduto;
+    private TipoProdutoVeiculo tipoProduto;
 
     private String marca;
 
@@ -41,6 +45,9 @@ public class ProdutoVeiculo {
 
     private Double precoInicial;
 
+    @OneToMany(mappedBy = "produtoVeiculo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LanceProdutoVeiculo> lances;
+
     @ManyToOne
     @JoinColumn(name = "leilao_id")
     private Leilao leilao;
@@ -61,7 +68,7 @@ public class ProdutoVeiculo {
     }
 
     public ProdutoVeiculo(CadastroProdutoVeiculoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
-        this.tipoProduto = cadastroProdutoVeiculoDTO.tipoProduto();
+        this.tipoProduto = TipoProdutoVeiculo.UTILITARIO;
         this.marca = cadastroProdutoVeiculoDTO.marca();
         this.modelo = cadastroProdutoVeiculoDTO.modelo();
         this.descricao = cadastroProdutoVeiculoDTO.descricao();
@@ -73,5 +80,91 @@ public class ProdutoVeiculo {
         this.cor = cadastroProdutoVeiculoDTO.cor();
         this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
         this.leilao = leilao;
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoMotocicletaDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoVeiculo.MOTOCICLETA;
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoCarroDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoVeiculo.CARRO;
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoCaminhaoDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoVeiculo.CAMINHAO;
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+
+    }
+
+    public ProdutoVeiculo(CadastroProdutoVeiculoUtilitarioDTO cadastroProdutoVeiculoDTO, Leilao leilao) {
+        this.tipoProduto = TipoProdutoVeiculo.UTILITARIO;
+        this.marca = cadastroProdutoVeiculoDTO.marca();
+        this.modelo = cadastroProdutoVeiculoDTO.modelo();
+        this.descricao = cadastroProdutoVeiculoDTO.descricao();
+        this.anoFabricacao = cadastroProdutoVeiculoDTO.anoFabricacao();
+        this.condicao = cadastroProdutoVeiculoDTO.condicao();
+        this.numeroPlaca = cadastroProdutoVeiculoDTO.numeroPlaca();
+        this.quilometragem = cadastroProdutoVeiculoDTO.quilometragem();
+        this.motor = cadastroProdutoVeiculoDTO.motor();
+        this.cor = cadastroProdutoVeiculoDTO.cor();
+        this.precoInicial = cadastroProdutoVeiculoDTO.precoInicial();
+        this.leilao = leilao;
+    }
+
+    public Object criacaoDTO() {
+        // Implementação padrão ou vazia na classe base
+        return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ProdutoVeiculo{" +
+                "id=" + id +
+                ", tipoProduto='" + tipoProduto + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", anoFabricacao='" + anoFabricacao + '\'' +
+                ", condicao=" + condicao +
+                ", numeroPlaca=" + numeroPlaca +
+                ", quilometragem=" + quilometragem +
+                ", motor=" + motor +
+                ", cor='" + cor + '\'' +
+                ", precoInicial=" + precoInicial +
+                ", leilao=" + leilao +
+                '}';
     }
 }

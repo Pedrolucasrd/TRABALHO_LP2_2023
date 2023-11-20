@@ -1,6 +1,10 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.cliente.AtualizaClienteDTO;
+import com.lp2.leilao.model.dto.cliente.CadastroClienteDTO;
+import com.lp2.leilao.model.dto.cliente.ExibicaoClienteDTO;
+import com.lp2.leilao.model.dto.cliente.ExibicaoListagemClientesDTO;
+import com.lp2.leilao.model.dto.lance.ExibicaoLanceProdutoDTO;
 import com.lp2.leilao.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +29,7 @@ public class ClienteController {
         return clienteService.procurarClientePorCpf(cpf);
     }
 
-    @GetMapping("listar-todos")
+    @GetMapping("listar-todos-clientes")
     public List<ExibicaoListagemClientesDTO> listarTodosClientes (){
         return clienteService.listarTodosClientes();
     }
@@ -35,14 +39,9 @@ public class ClienteController {
         return clienteService.atualizarCliente(cpf, atualizaClienteDTO);
     }
 
-    @GetMapping("procurar-lances-informatica-por-cpf/{cpf}")
-    public List<ExibicaoLanceProdutoInformaticaDTO> procurarLancesInformaticaPorCpf(@PathVariable String cpf){
-        return clienteService.procurarLancesInformaticaPorCpf(cpf);
-    }
-
-    @GetMapping("procurar-lances-veiculo-por-cpf/{cpf}")
-    public List<ExibicaoLanceProdutoVeiculoDTO> procurarLancesVeiculoPorCpf(@PathVariable String cpf){
-        return clienteService.procurarLancesVeiculoPorCpf(cpf);
+    @GetMapping("procurar-lances-por-cpf/{cpf}")
+    public List<ExibicaoLanceProdutoDTO> procurarLancesInformaticaPorCpf(@PathVariable String cpf){
+        return clienteService.procurarLancesPorCpf(cpf);
     }
 
     @DeleteMapping("deletar/{cpf}")

@@ -1,10 +1,9 @@
 package com.lp2.leilao.controller;
 
+import com.lp2.leilao.model.Motocicleta;
 import com.lp2.leilao.model.ProdutoVeiculo;
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoMudarLeilaoDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoDTO;
+import com.lp2.leilao.model.dto.leilao.ExibicaoProdutoMudarLeilaoDTO;
+import com.lp2.leilao.model.dto.produtoVeiculo.*;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
 import com.lp2.leilao.service.ProdutoVeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +22,47 @@ public class ProdutoVeiculoController {
     @Autowired
     private ProdutoVeiculoService produtoService;
 
+
     @PostMapping("/criar/{leilaoId}")
-    public ExibicaoProdutoVeiculoDTO adicionarProduto (@PathVariable Long leilaoId,
-                                                       @RequestBody CadastroProdutoVeiculoDTO produtoVeiculo){
-        return produtoService.criarProdutoVeiculo(leilaoId, produtoVeiculo);
+    public ProdutoVeiculo adicionarProduto (@PathVariable Long leilaoId,
+                                                       @RequestBody Motocicleta produtoVeiculo){
+        return produtoRepository.save(produtoVeiculo);
+    }
+    @PostMapping("/criar/motocicleta/{leilaoId}")
+    public ExibicaoProdutoVeiculoMotocicletaDTO adicionarProdutoMotocicleta (@PathVariable Long leilaoId,
+                                                       @RequestBody CadastroProdutoVeiculoMotocicletaDTO produtoVeiculo){
+        return produtoService.criarProdutoVeiculoMotocicleta(leilaoId, produtoVeiculo);
+    }
+
+    @PostMapping("/criar/carro/{leilaoId}")
+    public ExibicaoProdutoVeiculoCarroDTO adicionarProdutoCarro (@PathVariable Long leilaoId,
+                                                                  @RequestBody CadastroProdutoVeiculoCarroDTO produtoVeiculo){
+        return produtoService.criarProdutoVeiculoCarro(leilaoId, produtoVeiculo);
+    }
+
+    @PostMapping("/criar/caminhao/{leilaoId}")
+    public ExibicaoProdutoVeiculoCaminhaoDTO adicionarProdutoCaminhao (@PathVariable Long leilaoId,
+                                                                             @RequestBody CadastroProdutoVeiculoCaminhaoDTO produtoVeiculo) {
+        return produtoService.criarProdutoVeiculoCaminhao(leilaoId, produtoVeiculo);
+
+
+    }
+    @PostMapping("/criar/utilitario/{leilaoId}")
+    public ExibicaoProdutoVeiculoUtilitarioDTO adicionarProdutoUtilitario (@PathVariable Long leilaoId,
+                                                                       @RequestBody CadastroProdutoVeiculoUtilitarioDTO produtoVeiculo) {
+        return produtoService.criarProdutoVeiculoUtilitario(leilaoId, produtoVeiculo);
+
+
     }
 
     @GetMapping("/listar-todos")
     public List<ExibicaoProdutoVeiculoDTO> listarProdutosVeiculo (){
         return produtoService.listarProdutosVeiculo();
+    }
+
+    @GetMapping("{idProduto}")
+    public Object selecionarProdutoVeiculo (@PathVariable Long idProduto){
+        return produtoService.selecionarProdutoVeiculo(idProduto);
     }
 
     @PutMapping("atualizar/{id}")

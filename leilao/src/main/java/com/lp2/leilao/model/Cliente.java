@@ -1,8 +1,7 @@
 package com.lp2.leilao.model;
 
-import com.lp2.leilao.model.dto.AtualizaClienteDTO;
-import com.lp2.leilao.model.dto.CadastroClienteDTO;
-import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.dto.cliente.AtualizaClienteDTO;
+import com.lp2.leilao.model.dto.cliente.CadastroClienteDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
