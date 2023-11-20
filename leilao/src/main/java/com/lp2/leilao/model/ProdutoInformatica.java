@@ -1,7 +1,7 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.produtoInformatica.*;
 import com.lp2.leilao.model.enums.Condicao;
 import com.lp2.leilao.model.enums.TipoProdutoInformatica;
 import jakarta.persistence.*;
@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,11 +41,8 @@ public class ProdutoInformatica {
 
     private Double precoInicial;
 
-    @Transient
-    @ElementCollection
-//    @JoinColumn(name = "id_lance_produto")
-    private LanceProdutoInformatica lanceProdutoInformatica;
-
+    @OneToMany(mappedBy = "produtoInformatica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LanceProdutoInformatica> lances;
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")
@@ -112,7 +111,7 @@ public class ProdutoInformatica {
         this.condicao = cadastroProdutoInformaticaDTO.condicao();
         this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
         this.cor = cadastroProdutoInformaticaDTO.cor();
-        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
         this.leilao = leilao;
     }
 
@@ -125,7 +124,7 @@ public class ProdutoInformatica {
         this.condicao = cadastroProdutoInformaticaDTO.condicao();
         this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
         this.cor = cadastroProdutoInformaticaDTO.cor();
-        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
         this.leilao = leilao;
     }
 
@@ -138,7 +137,7 @@ public class ProdutoInformatica {
         this.condicao = cadastroProdutoInformaticaDTO.condicao();
         this.numeroSerie = cadastroProdutoInformaticaDTO.numeroSerie();
         this.cor = cadastroProdutoInformaticaDTO.cor();
-        this.precoInicial = cadastroProdutoInformaticaDTO.PrecoInicial();
+        this.precoInicial = cadastroProdutoInformaticaDTO.precoInicial();
         this.leilao = leilao;
     }
 
@@ -146,4 +145,5 @@ public class ProdutoInformatica {
         // Implementação padrão ou vazia na classe base
         return null;
     }
+
 }

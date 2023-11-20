@@ -1,6 +1,7 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.leilao.ExibicaoProdutoMudarLeilaoDTO;
+import com.lp2.leilao.model.dto.produtoInformatica.*;
 import com.lp2.leilao.service.ProdutoInformaticaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +17,14 @@ public class ProdutoInformaticaController {
     @Autowired
     private ProdutoInformaticaService produtoService;
 
-    @PostMapping("/criar/{leilaoId}")
-    public ExibicaoProdutoInformaticaDTO criarProdutoInformatica (@PathVariable Long leilaoId, @RequestBody CadastroProdutoInformaticaDTO produtoInformatica){
-        return produtoService.criarProdutoInformatica(leilaoId, produtoInformatica);
-    }
+//    @PostMapping("/criar/{leilaoId}")
+//    public ExibicaoProdutoInformaticaDTO criarProdutoInformatica (@PathVariable Long leilaoId, @RequestBody CadastroProdutoInformaticaDTO produtoInformatica){
+//        return produtoService.criarProdutoInformatica(leilaoId, produtoInformatica);
+//    }
 
     @PostMapping("/criar/notebook/{leilaoId}")
-    public ExibicaoProdutoInformaticaNotebookDTO criarProdutoInformaticaNotebook (@PathVariable Long leilaoId, @RequestBody CadastroProdutoInformaticaNotebookDTO produtoInformatica){
-        return produtoService.criarProdutoInformaticaNotebook(leilaoId, produtoInformatica);
+    public ExibicaoProdutoInformaticaNotebookDTO criarProdutoInformaticaNotebook (@PathVariable Long leilaoId,@RequestParam(required = false) Long idProdutoAtualizar, @RequestBody CadastroProdutoInformaticaNotebookDTO produtoInformatica){
+        return produtoService.criarProdutoInformaticaNotebook(leilaoId, produtoInformatica, idProdutoAtualizar);
     }
 
     @PostMapping("/criar/monitor/{leilaoId}")

@@ -20,5 +20,4 @@ public class PkLeilaoInstituicao implements Serializable {
 
     @ManyToOne
     private Leilao leilao;
-
 }

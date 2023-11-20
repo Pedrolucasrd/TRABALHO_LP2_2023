@@ -18,5 +18,5 @@ public interface LanceProdutoVeiculoRepository extends JpaRepository<LanceProdut
     @Query(value = "SELECT VALOR FROM LANCE_VEICULO WHERE produto_veiculo_id = ?1 ORDER BY VALOR DESC LIMIT 1",nativeQuery = true)
     Double findValorByProdutoVeiculo(Long id);
 
-    LanceProdutoVeiculo findByProdutoVeiculo(ProdutoVeiculo produtoVeiculo);
+    List<LanceProdutoVeiculo> findByProdutoVeiculo(ProdutoVeiculo produtoVeiculo);
 }

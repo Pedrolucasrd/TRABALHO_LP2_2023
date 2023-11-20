@@ -1,7 +1,7 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.produtoVeiculo.*;
 import com.lp2.leilao.model.enums.Condicao;
 import com.lp2.leilao.model.enums.TipoProdutoVeiculo;
 import jakarta.persistence.*;
@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,6 +44,9 @@ public class ProdutoVeiculo {
     private String cor;
 
     private Double precoInicial;
+
+    @OneToMany(mappedBy = "produtoVeiculo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LanceProdutoVeiculo> lances;
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")

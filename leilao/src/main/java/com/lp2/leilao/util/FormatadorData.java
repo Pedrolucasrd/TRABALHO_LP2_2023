@@ -9,4 +9,11 @@ public class FormatadorData {
         LocalDateTime dataFormatada = LocalDateTime.parse(data, formatador);
         return dataFormatada;
     }
+
+    public static String formatarData(LocalDateTime data){
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = data.format(formatador);
+        return dataFormatada;
+    }
+
 }

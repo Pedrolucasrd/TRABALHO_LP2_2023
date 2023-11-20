@@ -2,8 +2,8 @@ package com.lp2.leilao.controller;
 
 import com.lp2.leilao.model.Motocicleta;
 import com.lp2.leilao.model.ProdutoVeiculo;
-import com.lp2.leilao.model.dto.*;
-import com.lp2.leilao.repository.GenericRepository;
+import com.lp2.leilao.model.dto.leilao.ExibicaoProdutoMudarLeilaoDTO;
+import com.lp2.leilao.model.dto.produtoVeiculo.*;
 import com.lp2.leilao.repository.ProdutoVeiculoRepository;
 import com.lp2.leilao.service.ProdutoVeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/produto-veiculo")

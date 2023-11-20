@@ -1,7 +1,8 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.dto.CadastroInstituicaoFinanceiraDTO;
-import com.lp2.leilao.model.dto.ExibicaoInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.AlteracaoInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.CadastroInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.ExibicaoInstituicaoFinanceiraDTO;
 import com.lp2.leilao.service.InstituicaoFinanceiraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class InstituicaoFinanceiraController {
     }
 
     @PostMapping("vincular-leilao-instituicao/{idLeilao}/{idInstituicao}")
-    public void vincularInstituicaoComLeilao(@PathVariable Long idLeilao, @PathVariable Long idInstituicao){
-        instituicaofinanceiraService.vincularInstituicaoComLeilao(idLeilao, idInstituicao);
+    public AlteracaoInstituicaoFinanceiraDTO vincularInstituicaoComLeilao(@PathVariable Long idLeilao, @PathVariable Long idInstituicao){
+        return instituicaofinanceiraService.vincularInstituicaoComLeilao(idLeilao, idInstituicao);
     }
 
     @GetMapping("/consultar/{id}")

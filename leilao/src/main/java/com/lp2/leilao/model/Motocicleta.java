@@ -1,17 +1,12 @@
 package com.lp2.leilao.model;
 
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoVeiculoMotocicletaDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoCarroDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoVeiculoMotocicletaDTO;
+import com.lp2.leilao.model.dto.produtoVeiculo.CadastroProdutoVeiculoMotocicletaDTO;
+import com.lp2.leilao.model.dto.produtoVeiculo.ExibicaoProdutoVeiculoMotocicletaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.modelmapper.ModelMapper;
-
-import java.util.Optional;
 
 @Entity
 @Getter

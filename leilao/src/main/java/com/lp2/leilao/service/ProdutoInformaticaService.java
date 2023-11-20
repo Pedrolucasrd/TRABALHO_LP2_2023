@@ -1,15 +1,15 @@
 package com.lp2.leilao.service;
 
+import com.lp2.leilao.exception.SolicitacaoNaoEncontrada;
 import com.lp2.leilao.model.*;
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.leilao.ExibicaoProdutoMudarLeilaoDTO;
+import com.lp2.leilao.model.dto.produtoInformatica.*;
 import com.lp2.leilao.repository.LanceProdutoInformaticaRepository;
 import com.lp2.leilao.repository.LeilaoRepository;
 import com.lp2.leilao.repository.ProdutoInformaticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +29,7 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoInformaticaDTO criarProdutoInformatica(Long leilaoId, CadastroProdutoInformaticaDTO cadastroProdutoInformaticaDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         ProdutoInformatica produtoInformatica = new ProdutoInformatica(cadastroProdutoInformaticaDTO, leilao.get());
         produtoRepository.save(produtoInformatica);
@@ -40,13 +40,13 @@ public class ProdutoInformaticaService {
         List<ProdutoInformatica> produtoInformaticaLista = produtoRepository.findAll();
         return produtoInformaticaLista
                 .stream()
-                .map(produtoInformatica -> new ExibicaoProdutoInformaticaDTO(produtoInformatica)).toList();
+                .map(ExibicaoProdutoInformaticaDTO::new).toList();
     }
 
     public ExibicaoProdutoInformaticaDTO atualizarProduto(Long idProduto, CadastroProdutoInformaticaDTO cadastroProdutoInformaticaDTO) {
         Optional<ProdutoInformatica> produtoEncontrado = produtoRepository.findById(idProduto);
         if (produtoEncontrado.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Produto não encontrado!");
         }
 
         ProdutoInformatica produtoInformaticaAtualizado =
@@ -55,6 +55,7 @@ public class ProdutoInformaticaService {
         produtoRepository.save(produtoInformaticaAtualizado);
         return new ExibicaoProdutoInformaticaDTO(produtoInformaticaAtualizado);
     }
+
 
     public ResponseEntity<String> deletarProdutoInformatica(Long id) {
         if (produtoRepository.findById(id).isPresent()) {
@@ -73,19 +74,19 @@ public class ProdutoInformaticaService {
 
         Optional<ProdutoInformatica> produtoInformatica = produtoRepository.findById(idProduto);
 
-        LanceProdutoInformatica lanceProdutoInformatica = lanceProdutoInformaticaRepository.findByProdutoInformatica(produtoInformatica.get());
+        List<LanceProdutoInformatica> lanceProdutoInformatica = lanceProdutoInformaticaRepository.findByProdutoInformatica(produtoInformatica.get());
 
         if(lanceProdutoInformatica != null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto já possui lance!");
+            throw new SolicitacaoNaoEncontrada("Produto já possui lance!");
         }
 
         if(produtoInformatica.isEmpty() ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Produto não encontrado!");
         }
 
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         if(leilao.isEmpty() ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         produtoInformatica.get().setLeilao(leilao.get());
         produtoRepository.save(produtoInformatica.get());
@@ -93,10 +94,10 @@ public class ProdutoInformaticaService {
 
     }
 
-    public ExibicaoProdutoInformaticaNotebookDTO criarProdutoInformaticaNotebook(Long leilaoId, CadastroProdutoInformaticaNotebookDTO cadastroProdutoInformaticaDTO) {
+    public ExibicaoProdutoInformaticaNotebookDTO criarProdutoInformaticaNotebook(Long leilaoId, CadastroProdutoInformaticaNotebookDTO cadastroProdutoInformaticaDTO,Long idProdutoAtualizar) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         Notebook produtoInformatica = new Notebook(cadastroProdutoInformaticaDTO, leilao.get(), cadastroProdutoInformaticaDTO.tamanhoTela());
         produtoRepository.save(produtoInformatica);
@@ -106,7 +107,7 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoInformaticaMonitorDTO criarProdutoInformaticaMonitor(Long leilaoId, CadastroProdutoInformaticaMonitorDTO cadastroProdutoInformaticaMonitorDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         Monitor produtoInformatica = new Monitor(cadastroProdutoInformaticaMonitorDTO, leilao.get(), cadastroProdutoInformaticaMonitorDTO.tamanhoTela());
         produtoRepository.save(produtoInformatica);
@@ -116,7 +117,7 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoInformaticaHubDTO criarProdutoInformaticaHub(Long leilaoId, CadastroProdutoInformaticaHubDTO cadastroProdutoInformaticaHubDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         Hub produtoInformatica = new Hub(cadastroProdutoInformaticaHubDTO, leilao.get(), cadastroProdutoInformaticaHubDTO.quantidadePortas());
         produtoRepository.save(produtoInformatica);
@@ -126,7 +127,7 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoInformaticaSwitchDTO criarProdutoInformaticaSwitch(Long leilaoId, CadastroProdutoInformaticaSwitchDTO cadastroProdutoInformaticaSwitchDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         Switch produtoInformatica = new Switch(cadastroProdutoInformaticaSwitchDTO, leilao.get(), cadastroProdutoInformaticaSwitchDTO.quantidadePortas());
         produtoRepository.save(produtoInformatica);
@@ -135,7 +136,7 @@ public class ProdutoInformaticaService {
     public ExibicaoProdutoInformaticaRoteadorDTO criarProdutoInformaticaRoteador(Long leilaoId, CadastroProdutoInformaticaRoteadorDTO cadastroProdutoInformaticaRoteadorDTO) {
         Optional<Leilao> leilao = leilaoRepository.findById(leilaoId);
         if (leilao.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Leilão não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrado!");
         }
         Roteador produtoInformatica = new Roteador(cadastroProdutoInformaticaRoteadorDTO, leilao.get(), cadastroProdutoInformaticaRoteadorDTO.quantidadePortas());
         produtoRepository.save(produtoInformatica);
@@ -145,7 +146,7 @@ public class ProdutoInformaticaService {
     public Object selecionarProdutoInformatica(Long idProduto) {
         Optional<ProdutoInformatica> produtoInformatica = produtoRepository.findById(idProduto);
         if(produtoInformatica.isEmpty() ){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado!");
+            throw new SolicitacaoNaoEncontrada("Produto não encontrado!");
         }        return produtoInformatica.get().criacaoDTO();
     }
 }

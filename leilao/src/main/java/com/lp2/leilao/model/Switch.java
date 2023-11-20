@@ -1,9 +1,7 @@
 package com.lp2.leilao.model;
 
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaHubDTO;
-import com.lp2.leilao.model.dto.CadastroProdutoInformaticaSwitchDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoInformaticaHubDTO;
-import com.lp2.leilao.model.dto.ExibicaoProdutoInformaticaSwitchDTO;
+import com.lp2.leilao.model.dto.produtoInformatica.CadastroProdutoInformaticaSwitchDTO;
+import com.lp2.leilao.model.dto.produtoInformatica.ExibicaoProdutoInformaticaSwitchDTO;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

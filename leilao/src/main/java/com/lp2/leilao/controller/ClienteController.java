@@ -1,6 +1,10 @@
 package com.lp2.leilao.controller;
 
-import com.lp2.leilao.model.dto.*;
+import com.lp2.leilao.model.dto.cliente.AtualizaClienteDTO;
+import com.lp2.leilao.model.dto.cliente.CadastroClienteDTO;
+import com.lp2.leilao.model.dto.cliente.ExibicaoClienteDTO;
+import com.lp2.leilao.model.dto.cliente.ExibicaoListagemClientesDTO;
+import com.lp2.leilao.model.dto.lance.ExibicaoLanceProdutoDTO;
 import com.lp2.leilao.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

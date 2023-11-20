@@ -1,6 +1,6 @@
 package com.lp2.leilao.model;
 
-import com.lp2.leilao.model.dto.CadastroInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.CadastroInstituicaoFinanceiraDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

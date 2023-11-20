@@ -1,18 +1,17 @@
 package com.lp2.leilao.service;
 
+import com.lp2.leilao.exception.SolicitacaoNaoEncontrada;
 import com.lp2.leilao.model.InstituicaoFinanceira;
 import com.lp2.leilao.model.Leilao;
-import com.lp2.leilao.model.dto.CadastroInstituicaoFinanceiraDTO;
-import com.lp2.leilao.model.dto.ExibicaoInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.AlteracaoInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.CadastroInstituicaoFinanceiraDTO;
+import com.lp2.leilao.model.dto.InstituicaoFinanceira.ExibicaoInstituicaoFinanceiraDTO;
 import com.lp2.leilao.repository.InstituicaoFinanceiraRepository;
 import com.lp2.leilao.repository.LeilaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +20,6 @@ public class InstituicaoFinanceiraService {
     @Autowired
     private InstituicaoFinanceiraRepository instituicaoFinanceiraRepository;
 
-//    @Autowired
-//    private InstituicaoFinanceiraLeilaoRepository instituicaoFinanceiraLeilaoRepository;
 
     @Autowired
     private LeilaoRepository leilaoRepository;
@@ -34,25 +31,30 @@ public class InstituicaoFinanceiraService {
         return new ExibicaoInstituicaoFinanceiraDTO(instituicaoFinanceira);
     }
 
-    public void vincularInstituicaoComLeilao(Long idLeilao, Long idInstituicao){
+    public AlteracaoInstituicaoFinanceiraDTO vincularInstituicaoComLeilao(Long idLeilao, Long idInstituicao){
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
+        if(leilao.isEmpty()){
+            throw new SolicitacaoNaoEncontrada("Leilão não encontrada!");
+        }
         Optional<InstituicaoFinanceira> instituicaoFinanceira = instituicaoFinanceiraRepository.findById(idInstituicao);
-
+        if(instituicaoFinanceira.isEmpty()){
+            throw new SolicitacaoNaoEncontrada("Instituição Financeira não encontrada!");
+        }
         instituicaoFinanceira.get().adicionarLeilao(leilao.get());
-        instituicaoFinanceiraRepository.save(instituicaoFinanceira.get());
+        return new AlteracaoInstituicaoFinanceiraDTO(instituicaoFinanceiraRepository.save(instituicaoFinanceira.get()),idLeilao);
     }
 
     public ExibicaoInstituicaoFinanceiraDTO consultainstituicaoPorId(Long id) {
         Optional<InstituicaoFinanceira> instituicaoFinanceira = instituicaoFinanceiraRepository.findById(id);
         if(instituicaoFinanceira.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituição Financeira não encontrada !!!");
+            throw new SolicitacaoNaoEncontrada("Instituição Financeira não encontrada!");
         }
         return  new ExibicaoInstituicaoFinanceiraDTO(instituicaoFinanceira.get());
     }
     public List<ExibicaoInstituicaoFinanceiraDTO> consultainstituicaoPorLeilao(Long idLeilao) {
         List<InstituicaoFinanceira> instituicaoFinanceira =  instituicaoFinanceiraRepository.findByLeilaoId(idLeilao);
         if(instituicaoFinanceira.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituição Financeira não encontrada !!!");
+            throw new SolicitacaoNaoEncontrada("Instituição Financeira não encontrada!");
         }
         return instituicaoFinanceira.stream().map(ExibicaoInstituicaoFinanceiraDTO::new).toList();
     }
@@ -60,7 +62,7 @@ public class InstituicaoFinanceiraService {
     public ExibicaoInstituicaoFinanceiraDTO atualizarinstituicao(Long id, CadastroInstituicaoFinanceiraDTO cadastroInstituicaoFinanceiraDTO) {
         Optional<InstituicaoFinanceira> instituicaoEncontrado = instituicaoFinanceiraRepository.findById(id);
         if(instituicaoEncontrado.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instituição Financeira não encontrada !!!");
+            throw new SolicitacaoNaoEncontrada("Instituição Financeira não encontrada!");
         }
         InstituicaoFinanceira instituicaoFinanceiraAtualizado = new InstituicaoFinanceira(instituicaoEncontrado.get(), cadastroInstituicaoFinanceiraDTO);
         instituicaoFinanceiraRepository.save(instituicaoFinanceiraAtualizado);
@@ -68,15 +70,21 @@ public class InstituicaoFinanceiraService {
     }
 
     public ResponseEntity<String> deletarinstituicaoPorId(Long id) {
-        if(instituicaoFinanceiraRepository.findById(id).isPresent()){
+        Optional<InstituicaoFinanceira> instituicaoFinanceira = instituicaoFinanceiraRepository.findById(id);
+        if(instituicaoFinanceira.isPresent()){
+            for(Leilao leilao: instituicaoFinanceira.get().getLeilao()){
+                if(leilao.getInstituicaoFinanceira().size()==1){
+                    throw new SolicitacaoNaoEncontrada("O leilão com ID "+leilao.getId()+" possui apenas está instituição financeira!");
+                }
+            }
             instituicaoFinanceiraRepository.deleteById(id);
         } else {
-            return ResponseEntity.ok().body("Instituição inexistente !!!");
+            throw new SolicitacaoNaoEncontrada("Instituição inexistente!");
         }
         if (instituicaoFinanceiraRepository.findById(id).isEmpty()){
-            return ResponseEntity.ok().body("Instituição financeira deletada com sucesso !!!");
+            return ResponseEntity.ok().body("Instituição financeira deletada com sucesso!");
         } else {
-            return ResponseEntity.ok().body("Erro ao deletar instituição financeira !!!");
+            throw new SolicitacaoNaoEncontrada("Erro ao deletar instituição financeira!");
         }
     }
 }

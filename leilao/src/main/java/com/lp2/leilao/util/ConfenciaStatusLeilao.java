@@ -9,12 +9,12 @@ public class ConfenciaStatusLeilao {
 
     public static StatusLeilao conferirStatus(Leilao leilao){
         LocalDateTime dataAtual = LocalDateTime.now();
-        if(dataAtual.isBefore(leilao.getDataAbertura())){
-            return StatusLeilao.EM_ABERTO;
+        if(dataAtual.isAfter(leilao.getDataFechamento())){
+            return StatusLeilao.FINALIZADO;
         }else if(dataAtual.isAfter(leilao.getDataInicio()) && dataAtual.isBefore(leilao.getDataFechamento())){
             return StatusLeilao.EM_ANDAMENTO;
         }else {
-            return StatusLeilao.FINALIZADO;
+            return StatusLeilao.EM_ABERTO;
         }
     }
 }

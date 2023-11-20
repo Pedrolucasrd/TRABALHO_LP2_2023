@@ -1,7 +1,7 @@
 package com.lp2.leilao.model;
 
 
-import com.lp2.leilao.model.dto.CadastroLeilaoDTO;
+import com.lp2.leilao.model.dto.leilao.CadastroLeilaoDTO;
 import com.lp2.leilao.model.enums.StatusLeilao;
 import com.lp2.leilao.util.FormatadorData;
 import jakarta.persistence.*;
@@ -26,10 +26,16 @@ public class Leilao {
     private Long id;
     private String nome;
     private String descricao;
-    private LocalDateTime dataAbertura = LocalDateTime.now(ZoneId.systemDefault()).minusHours(3);
+    private LocalDateTime dataAbertura = LocalDateTime.now(ZoneId.systemDefault());
     private LocalDateTime dataInicio;
     private LocalDateTime dataFechamento;
     private StatusLeilao status;
+
+    @ManyToOne
+    @JoinColumn(name = "numero", referencedColumnName = "numero")
+    @JoinColumn(name = "cep", referencedColumnName = "cep")
+    public Localizacao localizacao;
+
 
     @ManyToMany
     @JoinTable(
