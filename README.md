@@ -81,8 +81,11 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 - /produto-informatica/deletar/{id}
 
 ## leilao-controller
+- /leilao/gerar-arquivo-det/{idLeilao}
 - /leilao/criar
-- /leilao/consultar/{id}
+- /leilao/listar
+- /leilao/detalhamento/{id}
+- /leilao/buscar-produtos/{idLeilao}
 - /leilao/deletar/{id}
 
 ## cliente-controller
@@ -94,7 +97,8 @@ java -jar target/TRABALHO_LP2_2023-1.0.0.jar
 - /cliente/deletar/{cpf}
 
 ## lance-controller
-- /lance/gerar-lance-produto-informatica/{produtoId}/{clienteCpf}/{valor}/{categoriaProduto}
+- /lance/historico/{produtoId}/{categoriaProduto}
+- /lance/gerar-lance/{produtoId}/{clienteCpf}/{valor}/{categoriaProduto}
 
 
 ## instituicao-financeira-controller
